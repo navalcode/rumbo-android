@@ -1,0 +1,178 @@
+[
+  {
+    "path": ".gitattributes",
+    "sha256": "b1aa64caadda37af2a21cefff07da96e6f6566987c02d2e75b44bf1b7b42af3b"
+  },
+  {
+    "path": ".github/workflows/checks.yml",
+    "sha256": "57a6e3d5bd4bbbb08a8c4f5d991f025476dbfa17cfc7838c7cef9aaac3ce8d9c"
+  },
+  {
+    "path": "LICENSE",
+    "sha256": "8ee98a68db08740852b491de91922961bb928aaa13f9897c078a0e6eb3e1218a"
+  },
+  {
+    "path": "README.es.md",
+    "sha256": "feac02eea34cc9ce205e4d9760e049edad98469d39eb951488fb798ee71755a8"
+  },
+  {
+    "path": "README.md",
+    "sha256": "fa099ab93321e88a2f17891e4726d2a6fd1dbcba5747a2af1ace635b315e8035"
+  },
+  {
+    "path": "THIRD_PARTY.md",
+    "sha256": "d7e3fe00b4bfeaeb9043d99dbbfab2ee58a31bfc37b453eaae47a3a2719a3959"
+  },
+  {
+    "path": "app/build.gradle.kts",
+    "sha256": "bfb95e0d84b3b12f8333512b2b898c01c12f409b7480a35fbdf64e723fc164ef"
+  },
+  {
+    "path": "app/proguard-rules.pro",
+    "sha256": "13097bd3fd66c430c35fade97dfa1eaace14efc683a495d32404d57f725f87b8"
+  },
+  {
+    "path": "app/schemas/dev.navalcode.rumbo.data.TripDatabase/1.json",
+    "sha256": "42bd112f272bd82f8459a0f96d49ea7cb41a0296bb21533870784bdbb42d4545"
+  },
+  {
+    "path": "app/src/androidTest/java/dev/navalcode/rumbo/data/RoomTripStoreTest.kt",
+    "sha256": "57fce637c7d6a3e83e13823d88ecd7a91d7d2c56747e541c39e785b17878ae81"
+  },
+  {
+    "path": "app/src/androidTest/java/dev/navalcode/rumbo/ui/RumboJourneyTest.kt",
+    "sha256": "2bd5cd60b20c07706cc6ede156ebe693b5610271dc9091fe1491444b0819c6c6"
+  },
+  {
+    "path": "app/src/main/AndroidManifest.xml",
+    "sha256": "07404237917045ca9a80bfe7d9a7735e53b808b9ba945a6ad3d8572363ccd9b6"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/MainActivity.kt",
+    "sha256": "8f9b0364679a7b72315a2a87bf4f13e71ab1025e83e6a0c7e78b49fefeeb1c5f"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/RumboApplication.kt",
+    "sha256": "b83e825539a412092ac9e771865e4819f223bf213501390f34f6901d201afadc"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/data/DemoTripSource.kt",
+    "sha256": "4f4ce01141c3969268ec22c7db2af6c7147aa5622161e89f700035af52d33a69"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/data/TripCatalogApi.kt",
+    "sha256": "e0bd75b50f9e2e62aafea30e009a18db618893f5db0bcbe35e32613bdcb3cff3"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/data/TripDatabase.kt",
+    "sha256": "471596d16569ef9f757836e659c9d3dca8b29190ea655dd2416962003270134e"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/ui/Landscape.kt",
+    "sha256": "bd4979252dd3194c678f393a3baf1e2a025efd985b845fb8a348fe3e53d3933d"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/ui/RumboApp.kt",
+    "sha256": "9d7d04e254322f3a558b47689b0c0abec3baf59b27e040a9767aa643d163d803"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/ui/Theme.kt",
+    "sha256": "6d1a5492c7a82c3ee5c32bc1b42ce94395e3fbf20a95ab9a6941bc5ec8b29ae1"
+  },
+  {
+    "path": "app/src/main/java/dev/navalcode/rumbo/ui/TripsViewModel.kt",
+    "sha256": "a3a2a90be9c8fb3edffc43dad719a438c440c9814cfad357e5c9e07686b59c3a"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_rumbo.xml",
+    "sha256": "a556556dcaf654153b73d4a479262ed3d6c9ad5d595fbdef57ddb96a4358b6b5"
+  },
+  {
+    "path": "app/src/main/res/values/strings.xml",
+    "sha256": "c86410f1683ee8d2edc5d65dc53a0237ad9cb13c93d9c6ca0c08c90f1358c4e3"
+  },
+  {
+    "path": "app/src/main/res/values/themes.xml",
+    "sha256": "af997d1e976af2685b1d4767f61edfa2237fec9de42a99d2ff386de6a8a242fa"
+  },
+  {
+    "path": "app/src/main/res/values-es/strings.xml",
+    "sha256": "1ed66b99962c78ef20b2ce9d3a54831f5833e2856df864fa8d1ad1cbebb506e6"
+  },
+  {
+    "path": "app/src/main/res/xml/data_extraction_rules.xml",
+    "sha256": "8d80e149b783104ab9d9d085ace8cb50bfee6c1fe4af01e933997fc2d77ff06f"
+  },
+  {
+    "path": "app/src/test/java/dev/navalcode/rumbo/data/TripCatalogApiTest.kt",
+    "sha256": "dfac8c0f27eaeaa0e51ca3261631e0fb6af4f65448d3dd91856099a8e4d28878"
+  },
+  {
+    "path": "app/src/test/java/dev/navalcode/rumbo/ui/TripsViewModelTest.kt",
+    "sha256": "568816422cbb35c0a758c5a779ed3cf5ae8398aacc8c5f75ad048f6f4d52844d"
+  },
+  {
+    "path": "build.gradle.kts",
+    "sha256": "e79bc10fbefeab3a54dd8e39950bb4ae66ffd7ed3cf8df1a4c39431e397dec10"
+  },
+  {
+    "path": "core/build.gradle.kts",
+    "sha256": "d4be771afee911974b5bd257875b43734204ddef19864b7e28cd1bc33a1f4e82"
+  },
+  {
+    "path": "core/src/main/kotlin/dev/navalcode/rumbo/core/Trips.kt",
+    "sha256": "5512fb656a7411e157d0ed93a35d059ce7e54133411cb425c61fd758f39dbeeb"
+  },
+  {
+    "path": "core/src/test/kotlin/dev/navalcode/rumbo/core/TripFilterTest.kt",
+    "sha256": "018b0e12f6bb10633361ca29cd5d80ba80494ef82cb0d40c8636fe8cddea1e85"
+  },
+  {
+    "path": "core/src/test/kotlin/dev/navalcode/rumbo/core/TripRepositoryTest.kt",
+    "sha256": "bd67ed3a75b8eb7f9966b31b623e75941d48651ade061fcb6e01459d2ddc9264"
+  },
+  {
+    "path": "docs/ARCHITECTURE.md",
+    "sha256": "beb2ed9787d987ae2ab431585be6a20598b7569689a0a9ac835d8907d6811969"
+  },
+  {
+    "path": "docs/images/explore.png",
+    "sha256": "50acb174e284ae0a63e1586b5850b9810e011eb7a94fa65749506a9654a4df68"
+  },
+  {
+    "path": "docs/images/offline.png",
+    "sha256": "56f302db5ef3e2793869d311fa88d936461cf8cb4a2a7c684b3193cb3af5546e"
+  },
+  {
+    "path": "gradle/licenses/gradle-LICENSE.txt",
+    "sha256": "9536d88ea948603d18e232a13f5958d67807cd80828036b082bff171d2cf0703"
+  },
+  {
+    "path": "gradle/licenses/gradle-NOTICE.txt",
+    "sha256": "c2de5fd9adc7ccc4e1382a0e1f38ec6e14f8ca6e28d3c20289fe80353b019aa1"
+  },
+  {
+    "path": "gradle/wrapper/gradle-wrapper.jar",
+    "sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172"
+  },
+  {
+    "path": "gradle/wrapper/gradle-wrapper.properties",
+    "sha256": "7d09e69815e4c5a1c20cab8bc15cccd07922939f16bd6470a7436f709774eae4"
+  },
+  {
+    "path": "gradle.properties",
+    "sha256": "1b0d06c4540bd61cab45f373e963c74fa139d08167d7786012d2496666a0b258"
+  },
+  {
+    "path": "gradlew",
+    "sha256": "b187b4c52e749f5760afdd6fadc31b2a98ad35fb249bf0dff03b72650f320409"
+  },
+  {
+    "path": "gradlew.bat",
+    "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b"
+  },
+  {
+    "path": "settings.gradle.kts",
+    "sha256": "6588d5ac838d061c71c9bc76165f7c544b6698b125784bbb7b90c99a691c98c6"
+  }
+]
