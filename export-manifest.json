@@ -41,7 +41,7 @@
   },
   {
     "path": "app/src/androidTest/java/dev/navalcode/rumbo/ui/RumboJourneyTest.kt",
-    "sha256": "a9c2d9ee424ca5895085428d26ce233b56a0d6045278a711b3c522f0cc516486"
+    "sha256": "6d2e7e62190b5c5136b0b24881b990fda18ddefc66a6c0006569d25f26f53470"
   },
   {
     "path": "app/src/main/AndroidManifest.xml",
