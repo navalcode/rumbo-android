@@ -13,11 +13,11 @@
   },
   {
     "path": "README.es.md",
-    "sha256": "feac02eea34cc9ce205e4d9760e049edad98469d39eb951488fb798ee71755a8"
+    "sha256": "463d07a43320a4e6bad0dee679b7a9968d8ed7736bf503062b3c7996490bf375"
   },
   {
     "path": "README.md",
-    "sha256": "fa099ab93321e88a2f17891e4726d2a6fd1dbcba5747a2af1ace635b315e8035"
+    "sha256": "216451e71546808c10f588efb306fe8455e990b4cc9fd61d5c92ea302613e573"
   },
   {
     "path": "THIRD_PARTY.md",
@@ -41,7 +41,7 @@
   },
   {
     "path": "app/src/androidTest/java/dev/navalcode/rumbo/ui/RumboJourneyTest.kt",
-    "sha256": "2bd5cd60b20c07706cc6ede156ebe693b5610271dc9091fe1491444b0819c6c6"
+    "sha256": "a9c2d9ee424ca5895085428d26ce233b56a0d6045278a711b3c522f0cc516486"
   },
   {
     "path": "app/src/main/AndroidManifest.xml",
@@ -73,7 +73,7 @@
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/RumboApp.kt",
-    "sha256": "9d7d04e254322f3a558b47689b0c0abec3baf59b27e040a9767aa643d163d803"
+    "sha256": "24fd7bdfb9f86184c191896caba573d6b548becafa74b9dced607fe4311042df"
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/Theme.kt",
@@ -133,7 +133,7 @@
   },
   {
     "path": "docs/ARCHITECTURE.md",
-    "sha256": "beb2ed9787d987ae2ab431585be6a20598b7569689a0a9ac835d8907d6811969"
+    "sha256": "90c7af17bf0119e7db89526676a286c79c07a5b9f27372d4f59f311ca7a4f896"
   },
   {
     "path": "docs/images/explore.png",

@@ -18,6 +18,11 @@ class RumboJourneyTest {
         compose.waitUntil(10_000) { compose.onAllNodesWithTag("trip-card-alba").fetchSemanticsNodes().isNotEmpty() }
     }
 
+    private fun showFirstTrip() {
+        compose.onNodeWithTag("explore-list").performScrollToNode(hasTestTag("trip-card-alba"))
+        compose.onNodeWithTag("trip-card-alba").assertIsDisplayed()
+    }
+
     @Test fun openTripReserveAndFindItInPlan() {
         waitForCatalog()
         compose.onNodeWithTag("trip-card-alba").performClick()
@@ -37,8 +42,8 @@ class RumboJourneyTest {
         compose.onNodeWithTag("scenario-OFFLINE").performClick()
         compose.onNodeWithTag("nav-explore").performClick()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("sync-banner").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithTag("trip-card-alba").assertExists()
         compose.onNodeWithText(compose.activity.getString(R.string.offline_cached)).assertExists()
+        showFirstTrip()
     }
 
     @Test fun systemBackReturnsFromDetailToTheCatalog() {
@@ -47,7 +52,7 @@ class RumboJourneyTest {
         compose.onNodeWithTag("close-detail").assertExists()
         compose.onNodeWithTag("nav-explore").assertDoesNotExist()
         androidx.test.espresso.Espresso.pressBack()
-        compose.onNodeWithTag("trip-card-alba").assertExists()
+        showFirstTrip()
         compose.onNodeWithTag("nav-explore").assertIsSelected()
     }
 
@@ -59,6 +64,6 @@ class RumboJourneyTest {
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("close-detail").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("nav-explore").assertDoesNotExist()
         compose.onNodeWithTag("close-detail").performScrollTo().performClick()
-        compose.onNodeWithTag("trip-card-alba").assertExists()
+        showFirstTrip()
     }
 }

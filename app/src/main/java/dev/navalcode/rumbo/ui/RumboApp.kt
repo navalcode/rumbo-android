@@ -163,7 +163,7 @@ private fun ExploreScreen(
 ) {
     val keyboard = LocalSoftwareKeyboardController.current
     val trips = filterTrips(state.catalog.trips, query, category)
-    LazyColumn(contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    LazyColumn(modifier = Modifier.testTag("explore-list"), contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         item {
             BrandHeader()
             Hero(R.string.hero_eyebrow, R.string.hero_title, R.string.hero_subtitle)

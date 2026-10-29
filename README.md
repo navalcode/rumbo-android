@@ -73,7 +73,7 @@ The repository applies a 3.5-second source deadline. A failure preserves the pre
 Validated locally on 29 October 2026:
 
 - **32 JVM tests:** 16 core, 10 HTTP adapter and six ViewModel tests.
-- **Seven API 37 emulator tests:** Room persistence and Compose journeys, including reservation, cached offline content, system Back and detail restoration after activity recreation.
+- **Seven API 37 emulator tests:** Room persistence and Compose journeys, including reservation, cached offline content, system Back and detail restoration after activity recreation. These seven checks also passed at a smaller 1080 × 1920 viewport with 420 dpi.
 - **Lint:** no errors; dependency/target upgrade notices remain.
 - **Release:** APK and AAB built with R8; an optimized APK signed with a local test key loaded the catalog after clearing the demo cache.
 - **Advisory artifact audit:** 2.45 MB DEX and aligned native libraries at 16 KB, without tool warnings. This is not store approval.

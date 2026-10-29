@@ -73,7 +73,7 @@ El repositorio aplica un límite de 3,5 segundos a la fuente. Un fallo conserva 
 Comprobado localmente el 29 de octubre de 2026:
 
 - **32 pruebas JVM:** 16 de core, 10 del adaptador HTTP y seis de ViewModel.
-- **Siete pruebas en emulador API 37:** Room y recorridos Compose; reserva, caché sin conexión, Atrás y restauración del detalle al recrear la actividad.
+- **Siete pruebas en emulador API 37:** Room y recorridos Compose; reserva, caché sin conexión, Atrás y restauración del detalle al recrear la actividad. Las siete también pasan con ventana reducida a 1080 × 1920 y densidad 420 dpi.
 - **Lint:** sin errores; quedan avisos de actualización de dependencias y target.
 - **Release:** APK y AAB con R8; una copia optimizada con firma de prueba local cargó el catálogo con caché vacía.
 - **Auditoría consultiva:** 2,45 MB DEX y bibliotecas nativas alineadas a 16 KB, sin advertencias de la herramienta. No equivale a aprobación de tienda.
