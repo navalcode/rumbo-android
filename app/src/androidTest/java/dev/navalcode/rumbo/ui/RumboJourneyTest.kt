@@ -72,6 +72,23 @@ class RumboJourneyTest {
         compose.onNodeWithTag("nav-explore").assertIsSelected()
     }
 
+    @Test fun favoriteActionStaysInCatalogAndSurvivesActivityRecreation() {
+        waitForCatalog()
+        val graph = ApplicationProvider.getApplicationContext<RumboApplication>()
+        val wasSaved = runBlocking { "alba" in graph.repository.favorites.first() }
+        val title = runBlocking { graph.repository.catalog.first().trips.first { it.id == "alba" }.title }
+        val action = compose.activity.getString(if (wasSaved) R.string.favorite_remove else R.string.favorite_add, title)
+        compose.onNodeWithContentDescription(action).performClick()
+        runBlocking { withTimeout(5_000) { graph.repository.favorites.first { ("alba" in it) != wasSaved } } }
+        compose.onNodeWithTag("close-detail").assertDoesNotExist()
+        compose.onNodeWithTag("nav-explore").assertIsSelected()
+        compose.activityRule.scenario.recreate()
+        showFirstTrip()
+        val reverseAction = compose.activity.getString(if (wasSaved) R.string.favorite_add else R.string.favorite_remove, title)
+        compose.onNodeWithContentDescription(reverseAction).assertIsDisplayed()
+        compose.onNodeWithTag("close-detail").assertDoesNotExist()
+    }
+
     @Test fun activityRecreationRestoresTheDetailRoute() {
         waitForCatalog()
         compose.onNodeWithTag("trip-card-alba").performClick()

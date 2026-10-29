@@ -28,6 +28,10 @@ adb shell am start -n dev.navalcode.rumbo/.MainActivity --es demo_scenario OFFLI
 
 Allowed values: `CONNECTED`, `OFFLINE`, `SERVICE_ERROR`, `SLOW`. This argument only configures the original demo fixture.
 
+## Interface design
+
+[DESIGN.md](DESIGN.md) records the visual decisions. A compact introduction leads to labelled search, filters and trips; the favourite action is independent of opening a detail. Outfit serves reading/controls and Fraunces supports destination headings, with bundled OFL notices. Recovery banners are announced as live regions. The actual captures show the redesigned app, not generated mockups.
+
 ## Build and run
 
 Requires JDK 17, Android SDK 36 and a device/emulator with API 26 or newer. Open this directory in Android Studio, or configure the SDK in an untracked `local.properties`:
@@ -73,14 +77,14 @@ The repository applies a 3.5-second source deadline. A failure preserves the pre
 Validated locally on 29 October 2026:
 
 - **32 JVM tests:** 16 core, 10 HTTP adapter and six ViewModel tests.
-- **Seven API 37 emulator tests:** Room persistence and Compose journeys, including reservation, cached offline content, system Back and detail restoration after activity recreation. These seven checks also passed at a smaller 1080 × 1920 viewport with 420 dpi.
+- **Eight API 37 emulator tests:** three Room checks and five Compose journeys cover booking, cached offline content, Back, route restoration and an independent favourite action that persists after activity recreation. The redesigned suite passed at 360 × 800 logical pixels; the earlier seven checks also passed at 1080 × 1920 / 440 dpi.
 - **Lint:** no errors; dependency/target upgrade notices remain.
-- **Release:** APK and AAB built with R8; an optimized APK signed with a local test key loaded the catalog after clearing the demo cache.
-- **Advisory artifact audit:** 2.45 MB DEX and aligned native libraries at 16 KB, without tool warnings. This is not store approval.
+- **Release:** the redesigned APK builds with R8 and resource shrinking. An AAB and a locally test-signed cold-cache release were validated before this visual revision. Production signing is not configured.
+- **Advisory artifact audit:** 2.48 MB DEX with 16 KB native/ZIP alignment. The tool warns that R8 rate metadata is absent; it cannot measure shrinking/optimization/obfuscation percentages from this APK. This is not store approval.
 
 The GitHub Actions workflow builds/tests/lints the app and has a separate API 35 emulator job. Follow the workflow link above for current results; a checked-in workflow alone is not a passing run.
 
-UI resources are Spanish and English. Earlier visual checks covered both languages and enlarged text. No physical-device validation, formal accessibility certification, real availability, payments or store distribution is claimed.
+UI resources are Spanish and English. Current native visual checks cover both languages at 360 × 800 and English text scaling 1.5, including a scrollable detail. No physical-device validation, formal accessibility certification, real availability, payments or store distribution is claimed.
 
 ## License
 

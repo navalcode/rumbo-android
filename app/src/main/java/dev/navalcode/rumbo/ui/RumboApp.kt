@@ -1,4 +1,4 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 
 package dev.navalcode.rumbo.ui
 
@@ -29,11 +29,12 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -93,8 +94,8 @@ fun RumboApp(model: TripsViewModel) {
                                 selected = route == listOf("explore", "plan", "lab")[index],
                                 onClick = { selectTab(listOf("explore", "plan", "lab")[index]) },
                                 icon = { Icon(icon, null, modifier = Modifier.size(23.dp)) },
-                                label = { Text(stringResource(label), fontSize = 11.sp) },
-                                colors = NavigationBarItemDefaults.colors(indicatorColor = Sage, selectedIconColor = Ink, selectedTextColor = Ink, unselectedIconColor = Muted, unselectedTextColor = Muted),
+                                label = { Text(stringResource(label), fontSize = 12.sp) },
+                                colors = NavigationBarItemDefaults.colors(indicatorColor = Soft, selectedIconColor = Accent, selectedTextColor = Accent, unselectedIconColor = Muted, unselectedTextColor = Muted),
                             )
                         }
                     }
@@ -131,21 +132,20 @@ fun RumboApp(model: TripsViewModel) {
 
 @Composable
 private fun BrandHeader() {
-    Row(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 22.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
         Icon(Icons.Outlined.NearMe, null, Modifier.size(27.dp), tint = Ink)
-        Text("rumbo", fontFamily = FontFamily.Serif, fontSize = 32.sp, letterSpacing = (-1.5).sp,
+        Text("rumbo", fontFamily = DisplayFont, fontWeight = FontWeight.Medium, fontSize = 28.sp,
             modifier = Modifier.padding(start = 6.dp))
         Spacer(Modifier.weight(1f))
         Text(stringResource(R.string.demo_label), style = MaterialTheme.typography.labelSmall,
-            modifier = Modifier.border(1.dp, Line, RoundedCornerShape(6.dp)).padding(horizontal = 9.dp, vertical = 5.dp))
+            color = Muted, modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
     }
 }
 
 @Composable
-private fun Hero(eyebrow: Int, title: Int, subtitle: Int? = null) {
-    Text(stringResource(eyebrow), style = MaterialTheme.typography.labelSmall, color = Muted)
-    Text(stringResource(title), style = MaterialTheme.typography.headlineLarge,
-        modifier = Modifier.padding(top = 10.dp).semantics { heading() })
+private fun Hero(title: Int, subtitle: Int? = null) {
+    Text(stringResource(title), style = MaterialTheme.typography.headlineMedium,
+        modifier = Modifier.semantics { heading() })
     if (subtitle != null) Text(stringResource(subtitle), style = MaterialTheme.typography.bodyLarge,
         color = Muted, modifier = Modifier.padding(top = 12.dp))
 }
@@ -163,21 +163,21 @@ private fun ExploreScreen(
 ) {
     val keyboard = LocalSoftwareKeyboardController.current
     val trips = filterTrips(state.catalog.trips, query, category)
-    LazyColumn(modifier = Modifier.testTag("explore-list"), contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    LazyColumn(modifier = Modifier.testTag("explore-list"), contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         item {
             BrandHeader()
-            Hero(R.string.hero_eyebrow, R.string.hero_title, R.string.hero_subtitle)
-            Spacer(Modifier.height(23.dp))
+            Hero(R.string.hero_title)
+            Spacer(Modifier.height(16.dp))
             OutlinedTextField(
                 value = query, onValueChange = onQuery,
                 modifier = Modifier.fillMaxWidth().testTag("search"),
-                placeholder = { Text(stringResource(R.string.search_hint), fontSize = 14.sp) },
+                label = { Text(stringResource(R.string.search_hint)) },
                 leadingIcon = { Icon(Icons.Outlined.Search, null, tint = Muted) },
                 trailingIcon = { if (query.isNotEmpty()) IconButton(onClick = { onQuery("") }) { Icon(Icons.Outlined.Close, stringResource(R.string.clear_search)) } },
-                shape = RoundedCornerShape(18.dp), singleLine = true,
+                shape = RoundedCornerShape(12.dp), singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Line, unfocusedContainerColor = Color.White.copy(alpha = .65f)),
+                colors = OutlinedTextFieldDefaults.colors(unfocusedBorderColor = Outline, unfocusedContainerColor = Color.White.copy(alpha = .65f)),
             )
             Row(Modifier.padding(top = 12.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(selected = category == null, onClick = { onCategory(null) }, label = { Text(stringResource(R.string.filter_all)) })
@@ -194,7 +194,7 @@ private fun ExploreScreen(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(stringResource(R.string.updating), style = MaterialTheme.typography.bodyMedium, color = Muted)
-                    LinearProgressIndicator(Modifier.fillMaxWidth(), color = Ink, trackColor = Sage)
+                    LinearProgressIndicator(Modifier.fillMaxWidth(), color = Ink, trackColor = Soft)
                 }
             }
         }
@@ -232,26 +232,29 @@ private fun TripCard(trip: Trip, saved: Boolean, open: () -> Unit, favorite: (Bo
     val openLabel = stringResource(R.string.open_trip, trip.title)
     Card(
         onClick = open, modifier = Modifier.fillMaxWidth().testTag("trip-card-${trip.id}"),
-        shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = Color.White),
         border = androidx.compose.foundation.BorderStroke(1.dp, Line),
     ) {
         Box {
-            Landscape(trip.artwork, Modifier.fillMaxWidth().height(170.dp).semantics { contentDescription = openLabel })
+            Landscape(trip.artwork, Modifier.fillMaxWidth().aspectRatio(2.1f).semantics { contentDescription = openLabel })
             Surface(Modifier.align(Alignment.TopStart).padding(14.dp), color = Paper.copy(alpha = .93f), shape = RoundedCornerShape(8.dp)) {
                 Text(categoryLabel(trip.category), Modifier.padding(horizontal = 10.dp, vertical = 6.dp), style = MaterialTheme.typography.bodyMedium)
             }
             FavoriteButton(saved, trip.title, { favorite(!saved) }, Modifier.align(Alignment.TopEnd).padding(8.dp))
         }
-        Column(Modifier.padding(18.dp)) {
+        Column(Modifier.padding(16.dp)) {
             Text(trip.region.uppercase(), style = MaterialTheme.typography.labelSmall, color = Muted)
             Text(trip.title, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 6.dp))
             Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 Icon(Icons.Outlined.Schedule, null, Modifier.size(15.dp), tint = Muted)
-                Text(pluralStringResource(R.plurals.trip_duration, trip.days, trip.days), style = MaterialTheme.typography.bodyMedium, color = Muted)
-                Text("·", color = Muted)
-                Text(stringResource(R.string.trip_distance, trip.distanceKm), style = MaterialTheme.typography.bodyMedium, color = Muted)
+                Text(
+                    pluralStringResource(R.plurals.trip_duration, trip.days, trip.days) + " · " +
+                        stringResource(R.string.trip_distance, trip.distanceKm),
+                    style = MaterialTheme.typography.bodyMedium, color = Muted,
+                    modifier = Modifier.weight(1f),
+                )
             }
-            HorizontalDivider(Modifier.padding(vertical = 14.dp), color = Line)
+            HorizontalDivider(Modifier.padding(vertical = 12.dp), color = Line)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text(stringResource(R.string.trip_price, trip.priceEuros), style = MaterialTheme.typography.titleMedium)
@@ -267,13 +270,13 @@ private fun TripCard(trip: Trip, saved: Boolean, open: () -> Unit, favorite: (Bo
 private fun FavoriteButton(saved: Boolean, title: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
     FilledTonalIconButton(onClick, modifier = modifier.size(48.dp), colors = IconButtonDefaults.filledTonalIconButtonColors(containerColor = Paper.copy(alpha = .96f))) {
         Icon(if (saved) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
-            stringResource(if (saved) R.string.favorite_remove else R.string.favorite_add, title), tint = Ink, modifier = Modifier.size(21.dp))
+            stringResource(if (saved) R.string.favorite_remove else R.string.favorite_add, title), tint = if (saved) Accent else Ink, modifier = Modifier.size(21.dp))
     }
 }
 
 @Composable
 private fun SyncBanner(problem: SyncProblem, refresh: () -> Unit) {
-    Surface(color = Sage, shape = RoundedCornerShape(14.dp), modifier = Modifier.testTag("sync-banner")) {
+    Surface(color = Soft, shape = RoundedCornerShape(12.dp), modifier = Modifier.testTag("sync-banner").semantics { liveRegion = LiveRegionMode.Polite }) {
         Row(Modifier.padding(start = 14.dp, top = 6.dp, bottom = 6.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(Icons.Outlined.WifiOff, null, Modifier.size(19.dp), tint = Ink)
             Text(stringResource(when (problem) {
@@ -288,7 +291,7 @@ private fun SyncBanner(problem: SyncProblem, refresh: () -> Unit) {
 
 @Composable
 private fun EmptyPanel(title: Int, body: Int, action: Int? = null, onClick: () -> Unit = {}) {
-    Column(Modifier.fillMaxWidth().background(Sage.copy(alpha = .6f), RoundedCornerShape(18.dp)).padding(22.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column(Modifier.fillMaxWidth().background(Soft.copy(alpha = .6f), RoundedCornerShape(16.dp)).padding(22.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(stringResource(title), style = MaterialTheme.typography.titleMedium)
         Text(stringResource(body), style = MaterialTheme.typography.bodyMedium, color = Muted)
         if (action != null) TextButton(onClick, contentPadding = PaddingValues(0.dp)) { Text(stringResource(action)) }
@@ -297,13 +300,13 @@ private fun EmptyPanel(title: Int, body: Int, action: Int? = null, onClick: () -
 
 @Composable
 private fun PlanScreen(state: TripsState, open: (String) -> Unit, favorite: (String, Boolean) -> Unit) {
-    LazyColumn(contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-        item { BrandHeader(); Hero(R.string.plan_eyebrow, R.string.plan_title) }
+    LazyColumn(contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        item { BrandHeader(); Hero(R.string.plan_title) }
         item { SectionTitle(R.string.bookings_title) }
         if (state.bookings.isEmpty()) item { Text(stringResource(R.string.no_bookings), style = MaterialTheme.typography.bodyLarge, color = Muted) }
         items(state.bookings, key = { "booking-${it.tripId}" }) { booking ->
             state.catalog.trips.find { it.id == booking.tripId }?.let { trip ->
-                Surface(onClick = { open(trip.id) }, shape = RoundedCornerShape(18.dp), color = Sage, modifier = Modifier.fillMaxWidth().testTag("booking-${trip.id}")) {
+                Surface(onClick = { open(trip.id) }, shape = RoundedCornerShape(16.dp), color = Soft, modifier = Modifier.fillMaxWidth().testTag("booking-${trip.id}")) {
                     Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         Landscape(trip.artwork, Modifier.size(72.dp).clip(RoundedCornerShape(12.dp)))
                         Column(Modifier.weight(1f).padding(start = 14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -325,8 +328,8 @@ private fun PlanScreen(state: TripsState, open: (String) -> Unit, favorite: (Str
 
 @Composable
 private fun LabScreen(state: TripsState, scenario: DemoScenario, select: (DemoScenario) -> Unit, explore: () -> Unit) {
-    LazyColumn(contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        item { BrandHeader(); Hero(R.string.lab_eyebrow, R.string.lab_title, R.string.lab_body) }
+    LazyColumn(contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        item { BrandHeader(); Hero(R.string.lab_title, R.string.lab_body) }
         items(DemoScenario.entries, key = { it.name }) { value ->
             val selected = scenario == value
             val (title, body) = when (value) {
@@ -336,7 +339,7 @@ private fun LabScreen(state: TripsState, scenario: DemoScenario, select: (DemoSc
                 DemoScenario.SLOW -> R.string.scenario_slow to R.string.scenario_slow_body
             }
             Row(
-                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(if (selected) Sage else Color.White)
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(if (selected) Soft else Color.White)
                     .border(1.dp, if (selected) Ink.copy(alpha = .25f) else Line, RoundedCornerShape(16.dp))
                     .selectable(selected, role = Role.RadioButton, onClick = { select(value) })
                     .testTag("scenario-${value.name}").padding(16.dp),
@@ -350,16 +353,16 @@ private fun LabScreen(state: TripsState, scenario: DemoScenario, select: (DemoSc
             }
         }
         item {
-            Surface(shape = RoundedCornerShape(18.dp), color = Ink) {
+            Surface(shape = RoundedCornerShape(16.dp), color = Ink) {
                 Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(stringResource(R.string.lab_cache_title), style = MaterialTheme.typography.titleMedium, color = Color.White)
-                    Text(stringResource(R.string.lab_cache_body), style = MaterialTheme.typography.bodyMedium, color = Color(0xFFD9E2D7))
+                    Text(stringResource(R.string.lab_cache_body), style = MaterialTheme.typography.bodyMedium, color = Color.White)
                     Text(state.catalog.updatedAt?.let { stringResource(R.string.cache_updated, DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(it))) }
                         ?: stringResource(R.string.cache_empty), style = MaterialTheme.typography.bodyMedium, color = Color(0xFFCDD6BC))
                 }
             }
         }
-        item { Button(explore, Modifier.fillMaxWidth().heightIn(min = 52.dp), shape = RoundedCornerShape(14.dp)) { Text(stringResource(R.string.lab_cta)) } }
+        item { Button(explore, Modifier.fillMaxWidth().heightIn(min = 52.dp), shape = RoundedCornerShape(12.dp)) { Text(stringResource(R.string.lab_cta)) } }
     }
 }
 
@@ -382,7 +385,7 @@ private fun TripDetail(trip: Trip, saved: Boolean, reference: String?, close: ()
         Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             Text(trip.region.uppercase(), style = MaterialTheme.typography.labelSmall, color = Muted)
             Text(trip.title, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() })
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(categoryLabel(trip.category), style = MaterialTheme.typography.bodyMedium, color = Muted)
                 Text(pluralStringResource(R.plurals.trip_duration, trip.days, trip.days), style = MaterialTheme.typography.bodyMedium, color = Muted)
                 Text(stringResource(R.string.trip_distance, trip.distanceKm), style = MaterialTheme.typography.bodyMedium, color = Muted)
@@ -404,14 +407,14 @@ private fun TripDetail(trip: Trip, saved: Boolean, reference: String?, close: ()
             Text(stringResource(R.string.trip_price, trip.priceEuros), style = MaterialTheme.typography.headlineMedium)
             Text(stringResource(R.string.per_person), style = MaterialTheme.typography.bodyMedium, color = Muted)
             if (reference != null) {
-                Surface(color = Sage, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().testTag("reservation-confirmation")) {
+                Surface(color = Soft, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().testTag("reservation-confirmation")) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(stringResource(R.string.booking_saved), style = MaterialTheme.typography.titleMedium)
                         Text(stringResource(R.string.booking_reference, reference), style = MaterialTheme.typography.bodyMedium)
                     }
                 }
             }
-            Button(reserve, enabled = reference == null, shape = RoundedCornerShape(14.dp), modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp).testTag("reserve-trip")) {
+            Button(reserve, enabled = reference == null, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp).testTag("reserve-trip")) {
                 Text(stringResource(if (reference == null) R.string.reserve_trip else R.string.reserved_trip))
             }
             Text(stringResource(R.string.demo_notice), style = MaterialTheme.typography.bodyMedium, color = Muted)

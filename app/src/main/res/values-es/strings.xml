@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">Rumbo</string>
     <string name="demo_label">DEMO</string>
-    <string name="hero_eyebrow">CAMBIA DE AIRES</string>
-    <string name="hero_title">Tu próxima\nescapada empieza aquí.</string>
-    <string name="hero_subtitle">Unos días fuera. Otro ritmo.</string>
-    <string name="search_hint">¿Dónde te apetece ir?</string>
+    <string name="hero_title">Escapadas a tu ritmo</string>
+    <string name="search_hint">Buscar escapadas</string>
     <string name="clear_search">Borrar búsqueda</string>
     <string name="filter_all">Todas</string>
     <string name="category_mountain">Montaña</string>
@@ -46,7 +44,6 @@
     <string name="empty_title">No hay escapadas con estos filtros</string>
     <string name="empty_body">Prueba otra búsqueda o elige otra categoría.</string>
     <string name="clear_filters">Quitar filtros</string>
-    <string name="plan_eyebrow">ALGO BUENO POR DELANTE</string>
     <string name="plan_title">Tu próximo\ncambio de aires.</string>
     <string name="bookings_title">Tus reservas de demostración</string>
     <string name="favorites_title">Guardadas para después</string>
@@ -63,8 +60,7 @@
     <string name="description_forest">Caminos entre árboles, aire fresco y un lugar tranquilo donde parar. Una escapada ficticia para explorar esta aplicación.</string>
     <string name="highlight_flexible">Un plan a tu ritmo</string>
     <string name="highlight_local">Guardado en este dispositivo</string>
-    <string name="lab_eyebrow">MIRA CÓMO FUNCIONA</string>
-    <string name="lab_title">Buenas conexiones.\nY de las otras.</string>
+    <string name="lab_title">Prueba la recuperación</string>
     <string name="lab_body">Cambia la fuente simulada y observa cómo se recupera la app. Estos escenarios no modifican la conexión del dispositivo.</string>
     <string name="scenario_connected">Conectado</string>
     <string name="scenario_connected_body">El catálogo llega tras una breve espera simulada.</string>

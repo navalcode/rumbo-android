@@ -8,20 +8,24 @@
     "sha256": "e9e72696928219bf21b05224037a524b106c0228ed7b742f6cb2b4b58c9bce63"
   },
   {
+    "path": "DESIGN.md",
+    "sha256": "8e3d7ee15da8ef43cfafda98994f4dd08f78871ce699723949d8ece89120b6f2"
+  },
+  {
     "path": "LICENSE",
     "sha256": "8ee98a68db08740852b491de91922961bb928aaa13f9897c078a0e6eb3e1218a"
   },
   {
     "path": "README.es.md",
-    "sha256": "463d07a43320a4e6bad0dee679b7a9968d8ed7736bf503062b3c7996490bf375"
+    "sha256": "cccd6da2e2b1ca858b4369dfec136ec0ab483834b980a89bb2c1d5f267cad272"
   },
   {
     "path": "README.md",
-    "sha256": "216451e71546808c10f588efb306fe8455e990b4cc9fd61d5c92ea302613e573"
+    "sha256": "e223928419f354f11991dfdaea02813e01faf3a07e8794c486445a40f65424b8"
   },
   {
     "path": "THIRD_PARTY.md",
-    "sha256": "670b54ae4efd849cfc1a275761ab6e56b8e331a186787337ca195485770d0478"
+    "sha256": "956e93496d6f79cdfcf6df26478b4871c97b7e85b0338ae6492da18e58da6daf"
   },
   {
     "path": "app/build.gradle.kts",
@@ -41,11 +45,19 @@
   },
   {
     "path": "app/src/androidTest/java/dev/navalcode/rumbo/ui/RumboJourneyTest.kt",
-    "sha256": "6d2e7e62190b5c5136b0b24881b990fda18ddefc66a6c0006569d25f26f53470"
+    "sha256": "5bd984fda39f90b387d964bc89109e243f6293d27d185e60f63580f4b8600d02"
   },
   {
     "path": "app/src/main/AndroidManifest.xml",
     "sha256": "07404237917045ca9a80bfe7d9a7735e53b808b9ba945a6ad3d8572363ccd9b6"
+  },
+  {
+    "path": "app/src/main/assets/licenses/Fraunces-OFL.txt",
+    "sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b"
+  },
+  {
+    "path": "app/src/main/assets/licenses/Outfit-OFL.txt",
+    "sha256": "c676351bf8576b9aba743cd5eaa8c0e7ee0d51f805d720447b4df4ddb6a2e416"
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/MainActivity.kt",
@@ -73,11 +85,11 @@
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/RumboApp.kt",
-    "sha256": "24fd7bdfb9f86184c191896caba573d6b548becafa74b9dced607fe4311042df"
+    "sha256": "122db42670a7c0a33b785d9a8c4cd1f3ca303ef7189526f2e1555e6c23ee667e"
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/Theme.kt",
-    "sha256": "6d1a5492c7a82c3ee5c32bc1b42ce94395e3fbf20a95ab9a6941bc5ec8b29ae1"
+    "sha256": "63f715b03737196981fda4d7c1da19b20bcb47ea531c4c6a197417e2a5ec0180"
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/TripsViewModel.kt",
@@ -85,19 +97,43 @@
   },
   {
     "path": "app/src/main/res/drawable/ic_rumbo.xml",
-    "sha256": "a556556dcaf654153b73d4a479262ed3d6c9ad5d595fbdef57ddb96a4358b6b5"
+    "sha256": "16718d5ff2e21dedef7f2802b43aa9c96beb8ea82cf3a0dd951a2f071f8cee9e"
+  },
+  {
+    "path": "app/src/main/res/font/fraunces_medium.ttf",
+    "sha256": "4e17b9521b33ccddb4c5b31f0359db1a02789011fd7092ba524e7923658cdad8"
+  },
+  {
+    "path": "app/src/main/res/font/fraunces_semibold.ttf",
+    "sha256": "ef133d6e91ccd79ef27d611b127f049c0643550239c811e3163d03840d4ea554"
+  },
+  {
+    "path": "app/src/main/res/font/outfit_bold.ttf",
+    "sha256": "f8431eaa5623b80f6b7047ff39ceea1b623cf0ad9bb4044da05afafdcdb9f7b6"
+  },
+  {
+    "path": "app/src/main/res/font/outfit_medium.ttf",
+    "sha256": "51ab700d53276a167a826eb20e49c689b7e7e3d8084564ece70bdab511993f42"
+  },
+  {
+    "path": "app/src/main/res/font/outfit_regular.ttf",
+    "sha256": "5516f593c5ca20ebf130fa5b83462986daf73dabc66fef7c6ad55284b540079d"
+  },
+  {
+    "path": "app/src/main/res/font/outfit_semibold.ttf",
+    "sha256": "6d2ba45801a26c64a741bd8fb86f04ff9acefa35fadb41f1ccbd1e43ff5f25b4"
   },
   {
     "path": "app/src/main/res/values/strings.xml",
-    "sha256": "c86410f1683ee8d2edc5d65dc53a0237ad9cb13c93d9c6ca0c08c90f1358c4e3"
+    "sha256": "cc4c2ca33a93de1a3e3b750d3469cac8d71769eb3a3cc32121ee37f569536458"
   },
   {
     "path": "app/src/main/res/values/themes.xml",
-    "sha256": "af997d1e976af2685b1d4767f61edfa2237fec9de42a99d2ff386de6a8a242fa"
+    "sha256": "d231a7e7e4bfe4980e73b4102c998e447c12635b1fe66275898227650b150403"
   },
   {
     "path": "app/src/main/res/values-es/strings.xml",
-    "sha256": "1ed66b99962c78ef20b2ce9d3a54831f5833e2856df864fa8d1ad1cbebb506e6"
+    "sha256": "4f0dbe41cb2fb477fd250f1e1d698c0d5307628cd04506df92d0125ff564f52a"
   },
   {
     "path": "app/src/main/res/xml/data_extraction_rules.xml",
@@ -137,11 +173,11 @@
   },
   {
     "path": "docs/images/explore.png",
-    "sha256": "50acb174e284ae0a63e1586b5850b9810e011eb7a94fa65749506a9654a4df68"
+    "sha256": "9f42565a03a918dcf2c606366d3201c5b9436c3c971c49411ed6da8cf7c1e4d8"
   },
   {
     "path": "docs/images/offline.png",
-    "sha256": "56f302db5ef3e2793869d311fa88d936461cf8cb4a2a7c684b3193cb3af5546e"
+    "sha256": "44ea46e26e1de832b67163de99f02aa1593fd77c1a183fe9e50798f318545c3b"
   },
   {
     "path": "gradle/licenses/gradle-LICENSE.txt",

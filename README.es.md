@@ -28,6 +28,10 @@ adb shell am start -n dev.navalcode.rumbo/.MainActivity --es demo_scenario OFFLI
 
 Valores: `CONNECTED`, `OFFLINE`, `SERVICE_ERROR`, `SLOW`. El parámetro configura únicamente la fuente ficticia original.
 
+## Diseño de interfaz
+
+[DESIGN.md](DESIGN.md) registra las decisiones visuales. La cabecera compacta lleva a búsqueda etiquetada, filtros y destinos; el favorito es independiente de abrir detalle. Outfit sirve a lectura/controles y Fraunces a títulos de destino, con avisos OFL empaquetados. Los avisos de recuperación se anuncian como live region. Las capturas muestran la app rediseñada en ejecución, no conceptos generados.
+
 ## Ejecutar
 
 Requisitos: JDK 17, Android SDK 36 y dispositivo/emulador con API 26 o superior. Abre esta carpeta en Android Studio o configura el SDK mediante `local.properties` sin versionar:
@@ -73,14 +77,14 @@ El repositorio aplica un límite de 3,5 segundos a la fuente. Un fallo conserva 
 Comprobado localmente el 29 de octubre de 2026:
 
 - **32 pruebas JVM:** 16 de core, 10 del adaptador HTTP y seis de ViewModel.
-- **Siete pruebas en emulador API 37:** Room y recorridos Compose; reserva, caché sin conexión, Atrás y restauración del detalle al recrear la actividad. Las siete también pasan con ventana reducida a 1080 × 1920 y densidad 420 dpi.
+- **Ocho pruebas en emulador API 37:** tres de Room y cinco recorridos Compose cubren reserva, caché sin conexión, Atrás, restauración de ruta y un favorito independiente que persiste al recrear la actividad. La suite rediseñada pasa a 360 × 800 píxeles lógicos; las siete previas también pasaron a 1080 × 1920 / 440 dpi.
 - **Lint:** sin errores; quedan avisos de actualización de dependencias y target.
-- **Release:** APK y AAB con R8; una copia optimizada con firma de prueba local cargó el catálogo con caché vacía.
-- **Auditoría consultiva:** 2,45 MB DEX y bibliotecas nativas alineadas a 16 KB, sin advertencias de la herramienta. No equivale a aprobación de tienda.
+- **Release:** APK rediseñada con R8 y reducción de recursos. El AAB y el arranque release con firma de prueba/caché vacía se verificaron antes de esta revisión visual. No hay firma de producción configurada.
+- **Auditoría consultiva:** 2,48 MB DEX y alineación nativa/ZIP de 16 KB. La herramienta avisa de la ausencia de metadatos R8; no mide porcentajes de reducción/optimización/ofuscación desde este APK. No equivale a aprobación de tienda.
 
 El workflow GitHub Actions compila, prueba y ejecuta lint, con un segundo job de emulador API 35. El enlace superior muestra los resultados actuales; tener un workflow en Git no acredita una ejecución correcta.
 
-La interfaz tiene recursos españoles e ingleses. La revisión visual inicial incluyó ambos idiomas y letra ampliada. No se afirma validación física, certificación formal de accesibilidad, disponibilidad real, pagos o distribución en tienda.
+La interfaz tiene recursos españoles e ingleses. La revisión nativa actual cubre ambos idiomas a 360 × 800 y texto inglés a escala 1,5, incluido detalle desplazable. No se afirma validación física, certificación formal de accesibilidad, disponibilidad real, pagos o distribución en tienda.
 
 ## Licencia
 

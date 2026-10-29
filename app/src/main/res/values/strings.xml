@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">Rumbo</string>
     <string name="demo_label">DEMO</string>
-    <string name="hero_eyebrow">A CHANGE OF SCENERY</string>
-    <string name="hero_title">Find your\nnext escape.</string>
-    <string name="hero_subtitle">A few days away. A different pace.</string>
-    <string name="search_hint">Where would you like to go?</string>
+    <string name="hero_title">Find your next escape</string>
+    <string name="search_hint">Search trips</string>
     <string name="clear_search">Clear search</string>
     <string name="filter_all">All</string>
     <string name="category_mountain">Mountains</string>
@@ -44,7 +42,6 @@
     <string name="empty_title">Nothing here with these filters</string>
     <string name="empty_body">Try another search or choose a different category.</string>
     <string name="clear_filters">Clear filters</string>
-    <string name="plan_eyebrow">GOOD THINGS TO LOOK FORWARD TO</string>
     <string name="plan_title">Your next\nchange of pace.</string>
     <string name="bookings_title">Your demo bookings</string>
     <string name="favorites_title">Saved for later</string>
@@ -61,8 +58,7 @@
     <string name="description_forest">Woodland trails, fresh air and a quiet place to pause. A fictional escape designed to explore this app.</string>
     <string name="highlight_flexible">A plan at your own pace</string>
     <string name="highlight_local">Saved on this device</string>
-    <string name="lab_eyebrow">SEE HOW IT WORKS</string>
-    <string name="lab_title">Good connections.\nAnd the other kind.</string>
+    <string name="lab_title">Test recovery</string>
     <string name="lab_body">Change the simulated source and see how the app recovers. These scenarios don’t change your device’s connection.</string>
     <string name="scenario_connected">Connected</string>
     <string name="scenario_connected_body">The catalog arrives after a short simulated delay.</string>
