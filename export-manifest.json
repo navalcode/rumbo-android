@@ -5,7 +5,7 @@
   },
   {
     "path": ".github/workflows/checks.yml",
-    "sha256": "57a6e3d5bd4bbbb08a8c4f5d991f025476dbfa17cfc7838c7cef9aaac3ce8d9c"
+    "sha256": "e9e72696928219bf21b05224037a524b106c0228ed7b742f6cb2b4b58c9bce63"
   },
   {
     "path": "LICENSE",
@@ -21,7 +21,7 @@
   },
   {
     "path": "THIRD_PARTY.md",
-    "sha256": "d7e3fe00b4bfeaeb9043d99dbbfab2ee58a31bfc37b453eaae47a3a2719a3959"
+    "sha256": "670b54ae4efd849cfc1a275761ab6e56b8e331a186787337ca195485770d0478"
   },
   {
     "path": "app/build.gradle.kts",
