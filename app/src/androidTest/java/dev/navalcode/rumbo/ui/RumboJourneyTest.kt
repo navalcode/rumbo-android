@@ -4,18 +4,34 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.core.app.ApplicationProvider
+import dev.navalcode.rumbo.RumboApplication
+import dev.navalcode.rumbo.data.DemoScenario
 import dev.navalcode.rumbo.MainActivity
 import dev.navalcode.rumbo.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.rules.ExternalResource
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.flow.first
 
 @RunWith(AndroidJUnit4::class)
 class RumboJourneyTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule(order = 0) val sourceScenario = object : ExternalResource() {
+        override fun before() {
+            ApplicationProvider.getApplicationContext<RumboApplication>().source.setScenario(DemoScenario.CONNECTED)
+        }
+    }
+    @get:Rule(order = 1) val compose = createAndroidComposeRule<MainActivity>()
 
     private fun waitForCatalog() {
-        compose.waitUntil(10_000) { compose.onAllNodesWithTag("trip-card-alba").fetchSemanticsNodes().isNotEmpty() }
+        val graph = ApplicationProvider.getApplicationContext<RumboApplication>()
+        runBlocking { withTimeout(10_000) { graph.repository.catalog.first { catalog -> catalog.trips.any { it.id == "alba" } } } }
+        compose.waitForIdle()
+        // A populated catalog does not mean a lazy item is already composed on a small viewport.
+        showFirstTrip()
     }
 
     private fun showFirstTrip() {
