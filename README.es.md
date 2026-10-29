@@ -1,6 +1,6 @@
 # Rumbo
 
-[English](README.md) · [Comprobaciones Android](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml)
+[English](README.md) · [![CI](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml/badge.svg)](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml)
 
 Aplicación Android original para explorar escapadas ficticias y observar caché, adaptación REST, estado de presentación de solo lectura, cancelación, navegación y persistencia local.
 

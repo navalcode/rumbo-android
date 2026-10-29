@@ -1,6 +1,6 @@
 # Rumbo
 
-[Español](README.es.md) · [Android checks](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml)
+[Español](README.es.md) · [![CI](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml/badge.svg)](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml)
 
 An original Android app for exploring fictional trips and inspecting mobile engineering behavior: cached data, REST adaptation, immutable presentation state, cancellation, navigation and local persistence.
 
