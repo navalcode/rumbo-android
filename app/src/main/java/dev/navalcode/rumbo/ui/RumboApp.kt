@@ -122,7 +122,7 @@ fun RumboApp(model: TripsViewModel) {
                     } else if (state.sync == SyncStatus.Updating || state.sync == SyncStatus.Idle) {
                         CircularProgressIndicator(Modifier.align(Alignment.Center))
                     } else {
-                        EmptyPanel(R.string.empty_title, R.string.empty_body, R.string.close_detail, { nav.popBackStack() })
+                        EmptyPanel(R.string.trip_unavailable_title, R.string.trip_unavailable_body, R.string.close_detail, { nav.popBackStack() })
                     }
                 }
             }
@@ -215,7 +215,6 @@ private fun ExploreScreen(
                 Column(Modifier.fillMaxWidth().padding(vertical = 30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     CircularProgressIndicator(Modifier.size(28.dp), color = Ink, strokeWidth = 2.dp)
                     Text(stringResource(R.string.loading_title), style = MaterialTheme.typography.titleMedium)
-                    Text(stringResource(R.string.loading_body), style = MaterialTheme.typography.bodyMedium, color = Muted)
                 }
             }
             trips.isEmpty() -> item {
@@ -397,12 +396,6 @@ private fun TripDetail(trip: Trip, saved: Boolean, reference: String?, close: ()
                 Category.COAST -> R.string.description_coast
                 Category.FOREST -> R.string.description_forest
             }), style = MaterialTheme.typography.bodyLarge, color = Muted)
-            listOf(R.string.highlight_flexible, R.string.highlight_local).forEach { label ->
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Icon(Icons.Outlined.CheckCircle, null, Modifier.size(18.dp), tint = Ink)
-                    Text(stringResource(label), style = MaterialTheme.typography.bodyMedium)
-                }
-            }
             HorizontalDivider(color = Line)
             Text(stringResource(R.string.trip_price, trip.priceEuros), style = MaterialTheme.typography.headlineMedium)
             Text(stringResource(R.string.per_person), style = MaterialTheme.typography.bodyMedium, color = Muted)

@@ -4,9 +4,14 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import android.graphics.Bitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.test.platform.app.InstrumentationRegistry
+import java.io.File
 import androidx.test.core.app.ApplicationProvider
 import dev.navalcode.rumbo.RumboApplication
 import dev.navalcode.rumbo.data.DemoScenario
+import dev.navalcode.rumbo.core.SyncStatus
 import dev.navalcode.rumbo.MainActivity
 import dev.navalcode.rumbo.R
 import org.junit.Rule
@@ -39,10 +44,29 @@ class RumboJourneyTest {
         compose.onNodeWithTag("trip-card-alba").assertIsDisplayed()
     }
 
+    private fun capture(name: String) {
+        val label = InstrumentationRegistry.getArguments().getString("captureLabel") ?: return
+        require(label.matches(Regex("[a-z0-9-]{1,32}")))
+        compose.waitForIdle()
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val folder = File(instrumentation.targetContext.getExternalFilesDir(null), "editorial-captures")
+        check(folder.mkdirs() || folder.isDirectory)
+        val bitmap = compose.onRoot().captureToImage().asAndroidBitmap()
+        try {
+            File(folder, "$label-$name.png").outputStream().use { output ->
+                check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, output))
+            }
+        } finally { bitmap.recycle() }
+    }
+
     @Test fun openTripReserveAndFindItInPlan() {
         waitForCatalog()
+        compose.onNodeWithTag("explore-list").performScrollToIndex(0)
+        capture("explore")
+        showFirstTrip()
         compose.onNodeWithTag("trip-card-alba").performClick()
         compose.onNodeWithTag("reserve-trip").performScrollTo()
+        capture("detail")
         if (!compose.onNodeWithTag("reserve-trip").fetchSemanticsNode().config.contains(SemanticsProperties.Disabled)) {
             compose.onNodeWithTag("reserve-trip").performClick()
         }
@@ -50,16 +74,29 @@ class RumboJourneyTest {
         compose.onNodeWithTag("close-detail").performScrollTo().performClick()
         compose.onNodeWithTag("nav-plan").performClick()
         compose.onNodeWithTag("booking-alba").assertExists()
+        capture("plan")
     }
 
     @Test fun offlineScenarioKeepsCatalogAvailable() {
         waitForCatalog()
         compose.onNodeWithTag("nav-lab").performClick()
         compose.onNodeWithTag("scenario-OFFLINE").performClick()
+        capture("lab")
         compose.onNodeWithTag("nav-explore").performClick()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("sync-banner").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText(compose.activity.getString(R.string.offline_cached)).assertExists()
+        compose.onNodeWithTag("explore-list").performScrollToIndex(0)
+        capture("offline")
         showFirstTrip()
+        compose.onNodeWithTag("nav-lab").performClick()
+        compose.onNodeWithTag("scenario-CONNECTED").performClick()
+        val graph = ApplicationProvider.getApplicationContext<RumboApplication>()
+        runBlocking { withTimeout(10_000) { graph.repository.sync.first { it == SyncStatus.Ready } } }
+        compose.onNodeWithTag("nav-explore").performClick()
+        waitForCatalog()
+        compose.onAllNodesWithTag("sync-banner").assertCountEquals(0)
+        compose.onNodeWithTag("explore-list").performScrollToIndex(0)
+        capture("recovered")
     }
 
     @Test fun systemBackReturnsFromDetailToTheCatalog() {

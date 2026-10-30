@@ -9,7 +9,7 @@
   },
   {
     "path": "DESIGN.md",
-    "sha256": "8e3d7ee15da8ef43cfafda98994f4dd08f78871ce699723949d8ece89120b6f2"
+    "sha256": "0726b2014c13825b5d41866eba43709cc4a25a5206b15e84c3a95463af909e8f"
   },
   {
     "path": "LICENSE",
@@ -17,11 +17,11 @@
   },
   {
     "path": "README.es.md",
-    "sha256": "cccd6da2e2b1ca858b4369dfec136ec0ab483834b980a89bb2c1d5f267cad272"
+    "sha256": "7e97b4aa5e8e5686c023ca7532cf63148a2e3fcb545d6351f065f9a516b7b9f3"
   },
   {
     "path": "README.md",
-    "sha256": "e223928419f354f11991dfdaea02813e01faf3a07e8794c486445a40f65424b8"
+    "sha256": "9cd3a10a5b29341aa97eb8edc27d863a94d7640204cb0229255042910e2a00c1"
   },
   {
     "path": "THIRD_PARTY.md",
@@ -45,7 +45,7 @@
   },
   {
     "path": "app/src/androidTest/java/dev/navalcode/rumbo/ui/RumboJourneyTest.kt",
-    "sha256": "5bd984fda39f90b387d964bc89109e243f6293d27d185e60f63580f4b8600d02"
+    "sha256": "fb1e651919b2b487b6932476d0b3f1d2b815dd7405d4dcc3c7c649601933c968"
   },
   {
     "path": "app/src/main/AndroidManifest.xml",
@@ -85,7 +85,7 @@
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/RumboApp.kt",
-    "sha256": "122db42670a7c0a33b785d9a8c4cd1f3ca303ef7189526f2e1555e6c23ee667e"
+    "sha256": "03c5f3360d021e0d02887922d8c0ba8785dde35ec6750af72ba6dc6a9b106748"
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/Theme.kt",
@@ -125,7 +125,7 @@
   },
   {
     "path": "app/src/main/res/values/strings.xml",
-    "sha256": "cc4c2ca33a93de1a3e3b750d3469cac8d71769eb3a3cc32121ee37f569536458"
+    "sha256": "75e2bbb726d3af3efd07b1a25eea8368f4b5a2ae47874a1c236c87f01da42296"
   },
   {
     "path": "app/src/main/res/values/themes.xml",
@@ -133,7 +133,7 @@
   },
   {
     "path": "app/src/main/res/values-es/strings.xml",
-    "sha256": "4f0dbe41cb2fb477fd250f1e1d698c0d5307628cd04506df92d0125ff564f52a"
+    "sha256": "f8992aee3e0ea3295395c6f132e3de4a7cbacdf644f862de9e718cf12b2c89a3"
   },
   {
     "path": "app/src/main/res/xml/data_extraction_rules.xml",
@@ -169,15 +169,35 @@
   },
   {
     "path": "docs/ARCHITECTURE.md",
-    "sha256": "90c7af17bf0119e7db89526676a286c79c07a5b9f27372d4f59f311ca7a4f896"
+    "sha256": "4941104e21f4243747c1d4cef69057773a12ef7aa464996e0ff8f8ff194cf781"
+  },
+  {
+    "path": "docs/VERIFICATION.md",
+    "sha256": "4f701666e92e3b26c511071f703eea1588e17c48ac606a49ca779d5972df91f7"
+  },
+  {
+    "path": "docs/images/detail.png",
+    "sha256": "eb7cf46942ea623004f03aeb52a92b3187a2e7bd13b7cce04fa6473468fcb6d6"
+  },
+  {
+    "path": "docs/images/es-explore.png",
+    "sha256": "2492e09b05674a622ecdd00291bf0736fd666b6cb8b9d88db7c4495b201c344d"
+  },
+  {
+    "path": "docs/images/es-offline.png",
+    "sha256": "e414961adc149cdeede0455c3ffdce487ed915a1970d0806aaf2054a540fda54"
   },
   {
     "path": "docs/images/explore.png",
-    "sha256": "9f42565a03a918dcf2c606366d3201c5b9436c3c971c49411ed6da8cf7c1e4d8"
+    "sha256": "8e4228a8e4b18daa5575bf2deb6880aecbc9d95b46b5a1a88abf85f92d6c0ba8"
   },
   {
     "path": "docs/images/offline.png",
-    "sha256": "44ea46e26e1de832b67163de99f02aa1593fd77c1a183fe9e50798f318545c3b"
+    "sha256": "7ba931e3d12b11f3f3971019e74baf36a11fb32991cdd84c1d86832811bd2382"
+  },
+  {
+    "path": "docs/images/plan.png",
+    "sha256": "8daebd016cb96f2ca9ac7b4810a93e95e4ff5ba27f1474b22cd46a93bd4c6ff8"
   },
   {
     "path": "gradle/licenses/gradle-LICENSE.txt",

@@ -1,40 +1,35 @@
 # Rumbo
 
-[English](README.md) · [![CI](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml/badge.svg)](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml)
+[English](README.md) · [Compilación y pruebas](https://github.com/navalcode/rumbo-android/actions/workflows/checks.yml)
 
-Aplicación Android original para explorar escapadas ficticias y observar caché, adaptación REST, estado de presentación de solo lectura, cancelación, navegación y persistencia local.
+Aplicación Android para explorar seis escapadas ficticias, guardar favoritos y conservar reservas de ejemplo en el dispositivo. Si falla una actualización, el catálogo guardado sigue disponible.
 
-Catálogo, regiones, precios y reservas son inventados. No requiere servicios de producción, cuentas ni API keys. No solicita permisos ni recoge datos personales. Los favoritos y reservas de demostración permanecen en el dispositivo.
+Usa Kotlin, Compose, Navigation, Room y Retrofit, con la lógica de dominio en un módulo core separado. Los destinos y precios son inventados; una reserva de ejemplo no reserva un viaje real. No necesita cuenta, clave de API ni backend, y no tiene permiso de Internet.
 
-| Explorar | Consultar sin conexión |
-|---|---|
-| ![Catálogo de Rumbo](docs/images/explore.png) | ![Catálogo guardado cuando falla la fuente](docs/images/offline.png) |
+<p>
+<img src="docs/images/es-explore.png" alt="Catálogo de Rumbo en el emulador Android" width="240">
+<img src="docs/images/es-offline.png" alt="Catálogo guardado disponible tras un fallo de conexión simulado" width="240">
+</p>
 
 ## Qué puedes probar
 
-1. Explora seis escapadas y busca por nombre o región, con o sin acentos.
-2. Filtra por montaña, costa o bosque.
-3. Abre el detalle, guarda un favorito y crea una reserva local ficticia.
-4. Consulta favoritos y reservas en Mi plan.
-5. En Laboratorio, selecciona Sin conexión, Error de servicio o Respuesta lenta.
-6. Vuelve al catálogo: un fallo de actualización conserva lo guardado. Selecciona Conectado para recuperar.
-7. Reinicia para comprobar la persistencia. Atrás vuelve del detalle a su destino anterior.
+1. Busca por título o región, con o sin acentos, y filtra por categoría.
+2. Abre una escapada. El corazón guarda un favorito sin confundir esa acción con abrir el detalle.
+3. Pulsa **Añadir reserva de ejemplo**. Consulta la reserva y tus favoritos en **Mi plan**. Repetir la reserva conserva su referencia original.
+4. En **Laboratorio**, selecciona Sin conexión, Error del servicio o Respuesta lenta y vuelve a Explorar. Un fallo de actualización conserva el catálogo guardado.
+5. Selecciona **Carga correcta** en Laboratorio para recuperar. Reinicia el proceso para comprobar favoritos y reservas guardados.
 
-Sin conexión modifica el transporte simulado, no la conectividad del dispositivo. Para comprobar un primer arranque sin caché, usa una instalación limpia:
+Los escenarios cambian las respuestas locales, no la conexión del dispositivo. Para probar el primer arranque sin datos guardados, utiliza una instalación nueva de la demo y el argumento de escenario. Sustituye `DEVICE_ID` por el serial del dispositivo:
 
 ```sh
-adb shell am start -n dev.navalcode.rumbo/.MainActivity --es demo_scenario OFFLINE
+adb -s DEVICE_ID shell am start -n dev.navalcode.rumbo/.MainActivity --es demo_scenario OFFLINE
 ```
 
-Valores: `CONNECTED`, `OFFLINE`, `SERVICE_ERROR`, `SLOW`. El parámetro configura únicamente la fuente ficticia original.
-
-## Diseño de interfaz
-
-[DESIGN.md](DESIGN.md) registra las decisiones visuales. La cabecera compacta lleva a búsqueda etiquetada, filtros y destinos; el favorito es independiente de abrir detalle. Outfit sirve a lectura/controles y Fraunces a títulos de destino, con avisos OFL empaquetados. Los avisos de recuperación se anuncian como live region. Las capturas muestran la app rediseñada en ejecución, no conceptos generados.
+Valores: `CONNECTED`, `OFFLINE`, `SERVICE_ERROR`, `SLOW`. Solo cambia la fuente de esta demo.
 
 ## Ejecutar
 
-Requisitos: JDK 17, Android SDK 36 y dispositivo/emulador con API 26 o superior. Abre esta carpeta en Android Studio o configura el SDK mediante `local.properties` sin versionar:
+Necesitas **JDK 17**, **Android SDK 36** y un emulador o dispositivo con **API 26 o superior**. Abre el proyecto en Android Studio o configura la ruta del SDK en un `local.properties` sin versionar:
 
 ```properties
 sdk.dir=/ruta/al/Android/sdk
@@ -46,46 +41,36 @@ Desde esta carpeta:
 ./gradlew :core:test :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
 ./gradlew :app:installDebug
 ./gradlew :app:connectedDebugAndroidTest
-./gradlew :app:bundleRelease
+./gradlew :app:assembleRelease
 ```
 
-Las pruebas conectadas necesitan un dispositivo. Gradle 8.14.3 está fijado con SHA-256; AGP 8.13.2, Kotlin 2.2.10 y las bibliotecas tienen versiones explícitas. Las dependencias vienen de Google Maven y Maven Central. Release habilita R8 y reducción de recursos; no hay firma de producción configurada.
+Las pruebas conectadas necesitan un emulador o dispositivo. Los [comandos de verificación](docs/VERIFICATION.md), en inglés, explican cómo elegir un serial y obtener capturas opcionales. `:app:bundleRelease` genera un AAB. Release activa R8 y reducción de recursos; no hay firma de producción configurada.
+
+Gradle 8.14.3 está fijado con SHA-256; AGP 8.13.2, Kotlin 2.2.10 y las bibliotecas usan versiones concretas. Las dependencias proceden de Google Maven y Maven Central.
 
 ## Por dónde leer el código
 
-| Límite | Código y comportamiento |
-|---|---|
-| Dominio y coordinación | [`Trips.kt`](core/src/main/kotlin/dev/navalcode/rumbo/core/Trips.kt): contratos, deadline, cancelación, caché y reserva idempotente. Sin dependencia de Android. |
-| Adaptador REST | [`TripCatalogApi.kt`](app/src/main/java/dev/navalcode/rumbo/data/TripCatalogApi.kt): Retrofit, validación DTO, fallos HTTP/I/O y transporte de demostración. |
-| Persistencia | [`TripDatabase.kt`](app/src/main/java/dev/navalcode/rumbo/data/TripDatabase.kt): Room, reemplazo transaccional y unicidad de reservas. |
-| Presentación | [`TripsViewModel.kt`](app/src/main/java/dev/navalcode/rumbo/ui/TripsViewModel.kt): flows de solo lectura, métodos de entrada, estado combinado y sustitución de cargas. |
-| Interfaz | [`RumboApp.kt`](app/src/main/java/dev/navalcode/rumbo/ui/RumboApp.kt): Compose, destinos Navigation, detalle por ID y acciones locales. |
-| Ilustraciones propias | [`Landscape.kt`](app/src/main/java/dev/navalcode/rumbo/ui/Landscape.kt): paisajes en Canvas. |
+- [Trips.kt](core/src/main/kotlin/dev/navalcode/rumbo/core/Trips.kt): contratos de fuente y almacenamiento, límite de espera, cancelación, caché y reservas idempotentes, sin dependencias de Android.
+- [TripCatalogApi.kt](app/src/main/java/dev/navalcode/rumbo/data/TripCatalogApi.kt): validación de DTO de Retrofit y tratamiento de fallos HTTP/I/O.
+- [TripDatabase.kt](app/src/main/java/dev/navalcode/rumbo/data/TripDatabase.kt): reemplazo transaccional del catálogo y reservas únicas con Room.
+- [TripsViewModel.kt](app/src/main/java/dev/navalcode/rumbo/ui/TripsViewModel.kt): flows de solo lectura, entradas del usuario y cancelación de una actualización sustituida por otra.
+- [RumboApp.kt](app/src/main/java/dev/navalcode/rumbo/ui/RumboApp.kt): Compose, destinos de Navigation, detalle por ID y acciones locales.
+- [Landscape.kt](app/src/main/java/dev/navalcode/rumbo/ui/Landscape.kt): ilustraciones Canvas originales.
 
-La inyección es manual porque el grafo es pequeño. [Arquitectura y decisiones](docs/ARCHITECTURE.md), en inglés, detalla responsabilidades, alternativas, restauración y límites de validación.
+[Arquitectura](docs/ARCHITECTURE.md), en inglés, explica el pequeño grafo manual de dependencias, las alternativas y los límites de restauración. [DESIGN.md](DESIGN.md) recoge el diseño y las fuentes empaquetadas.
 
 ## REST sin backend
 
-Retrofit declara `GET /v1/trips` sobre `https://demo.rumbo.invalid/`. Un interceptor de aplicación OkHttp responde todas las peticiones sin reenviarlas. Una cabecera de demostración selecciona éxito, fallo I/O o HTTP 503; el modo lento añade una espera cancelable. La app no tiene permiso de Internet ni abre conexiones de red.
+Retrofit declara `GET /v1/trips` en `https://demo.rumbo.invalid/`. Un interceptor de aplicación OkHttp responde localmente sin reenviar las peticiones. El escenario selecciona una respuesta, fallo I/O, HTTP 503 o espera cancelable. El repositorio aplica un límite de 3,5 segundos y conserva catálogo y fecha anteriores ante los fallos esperados.
 
-Pruebas independientes con MockWebServer ejercitan HTTP real en loopback: ruta, cabecera, serialización, respuestas fallidas y cancelación. Es un cliente contra un contrato ficticio original; no una integración con una API de viajes de producción.
+Las pruebas con MockWebServer usan HTTP real en loopback para comprobar contrato y cancelación. La fuente de viajes está simulada. Consulta y categoría se conservan al recrear la actividad mediante el ViewModel, pero no tras morir el proceso; los datos de Room persisten por separado.
 
-El repositorio aplica un límite de 3,5 segundos a la fuente. Un fallo conserva catálogo y fecha anteriores. Una nueva actualización cancela la previa. Repetir una reserva conserva referencia y fecha originales. Búsqueda y filtros utilizan la caché. Navigation y Room conservan rutas y datos; consulta/categoría no se restauran tras morir el proceso.
+## Comprobaciones y límites
 
-## Validación y límites
+El proyecto tiene **32 pruebas JVM** (16 de core, 10 HTTP y seis de ViewModel) y **ocho Android** de Room, reserva, caché, Atrás, favorito independiente y recreación de actividad. [Verificación](docs/VERIFICATION.md) registra ejecuciones, capturas, auditorías de artefactos e intentos fallidos. El enlace de CI superior lleva a los resultados alojados.
 
-Comprobado localmente el 29 de octubre de 2026:
-
-- **32 pruebas JVM:** 16 de core, 10 del adaptador HTTP y seis de ViewModel.
-- **Ocho pruebas en emulador API 37:** tres de Room y cinco recorridos Compose cubren reserva, caché sin conexión, Atrás, restauración de ruta y un favorito independiente que persiste al recrear la actividad. La suite rediseñada pasa a 360 × 800 píxeles lógicos; las siete previas también pasaron a 1080 × 1920 / 440 dpi.
-- **Lint:** sin errores; quedan avisos de actualización de dependencias y target.
-- **Release:** APK rediseñada con R8 y reducción de recursos. El AAB y el arranque release con firma de prueba/caché vacía se verificaron antes de esta revisión visual. No hay firma de producción configurada.
-- **Auditoría consultiva:** 2,48 MB DEX y alineación nativa/ZIP de 16 KB. La herramienta avisa de la ausencia de metadatos R8; no mide porcentajes de reducción/optimización/ofuscación desde este APK. No equivale a aprobación de tienda.
-
-El workflow GitHub Actions compila, prueba y ejecuta lint, con un segundo job de emulador API 35. El enlace superior muestra los resultados actuales; tener un workflow en Git no acredita una ejecución correcta.
-
-La interfaz tiene recursos españoles e ingleses. La revisión nativa actual cubre ambos idiomas a 360 × 800 y texto inglés a escala 1,5, incluido detalle desplazable. No se afirma validación física, certificación formal de accesibilidad, disponibilidad real, pagos o distribución en tienda.
+Los recursos están en español con inglés de respaldo. Es un ejemplo formativo: sin disponibilidad real, pagos, firma de producción ni distribución en tiendas. Las pruebas de emulador y las comprobaciones de layout no acreditan comportamiento físico ni una certificación formal de accesibilidad.
 
 ## Licencia
 
-Código, documentación e ilustraciones originales: [MIT](LICENSE), copyright 2026 Manuel Naval. [Avisos de terceros](THIRD_PARTY.md) conserva los del wrapper Gradle y las dependencias.
+Código, documentación e ilustraciones originales: [MIT](LICENSE), Manuel Naval, 2026. Los [avisos de terceros](THIRD_PARTY.md) conservan los de Gradle y las dependencias.
