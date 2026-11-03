@@ -2,11 +2,13 @@
 
 ## CI action runtime maintenance · 3 November 2026
 
-The workflow pins maintained releases of checkout, Java setup, artifact upload, Gradle setup and Android setup by full commit SHA. Their JavaScript runtime is Node 24; this does not change the app's JDK 17, SDK 36, dependency versions or test commands. Flutter setup and the emulator action keep their existing reviewed commits.
+The workflow pins maintained releases of checkout, Java setup, artifact upload, Gradle setup and Android setup by full commit SHA. Their JavaScript runtime is Node 24; this does not change the app's JDK 17, SDK 36, dependency versions or test commands. The emulator action keeps its existing reviewed commit.
 
 `setup-gradle` uses `cache-provider: basic`, retaining GitHub Actions caching instead of selecting the new enhanced provider. `setup-android` explicitly retains command-line tools archive `12266719`, which was the previous action's implicit default. Events, read-only contents permission, disabled credential persistence, runners, timeouts and artifact retention are unchanged.
 
-Local validation: actionlint 1.7.12 and a byte-for-byte comparison after reversing only the reviewed pins and explicit cache/SDK inputs. ShellCheck was unavailable; existing shell commands are unchanged. This validates workflow configuration, not a new hosted build. Follow the repository's current Actions run for hosted results; earlier app/runtime records below retain their original scope.
+Local validation: actionlint 1.7.12 and a byte-for-byte comparison after reversing only the reviewed pins and explicit cache/SDK inputs. ShellCheck was unavailable; existing shell commands are unchanged. Hosted verification: [run 41609164693](https://github.com/navalcode/rumbo-android/actions/runs/41609164693) succeeded at `8eeb987` in both jobs (Android build/bundle and API 35 emulator). Logs contain the reviewed action pins and no Node.js 20/setup-java v4 deprecation warning. Earlier app/runtime records below retain their original scope.
+
+Remaining annotations concern Gradle 8.14.3 maintenance, the existing Ubuntu label migration (Android only), and a basic-cache save reservation race between jobs. Both jobs succeeded; a cache save warning does not change their test/build result. Gradle compatibility and cache ownership require a separate reviewed maintenance increment. The workflow uploads reports/diagnostics rather than APK/AAB files; earlier local artifact audits below are not audits of these cloud outputs.
 
 ## Filter restoration · 3 November 2026
 
