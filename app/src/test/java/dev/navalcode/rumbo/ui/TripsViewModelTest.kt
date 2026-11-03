@@ -3,6 +3,7 @@
 package dev.navalcode.rumbo.ui
 
 import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.SavedStateHandle
 import dev.navalcode.rumbo.core.*
 import dev.navalcode.rumbo.data.*
 import java.io.IOException
@@ -32,9 +33,9 @@ class TripsViewModelTest {
     @Before fun setUp() { Dispatchers.setMain(dispatcher) }
     @After fun tearDown() { models.clear(); Dispatchers.resetMain() }
 
-    private fun connectedModel(): TripsViewModel {
+    private fun connectedModel(savedState: SavedStateHandle = SavedStateHandle()): TripsViewModel {
         val source = DemoTripSource(api)
-        return TripsViewModel(TripRepository(source, store, { 42L }), source)
+        return TripsViewModel(TripRepository(source, store, { 42L }), source, savedState)
             .also { models.put("test", it) }
     }
 
@@ -59,6 +60,39 @@ class TripsViewModelTest {
         assertEquals("Alba", model.query.value)
         assertEquals(Category.FOREST, model.category.value)
         assertEquals(1, requests)
+    }
+
+    @Test fun restoredFiltersAreAvailableBeforeTheCatalogLoads() = runTest {
+        val model = connectedModel(SavedStateHandle(mapOf(
+            "explore.query" to "Sierra",
+            "explore.category" to "MOUNTAIN",
+        )))
+        assertEquals("Sierra", model.query.value)
+        assertEquals(Category.MOUNTAIN, model.category.value)
+        assertTrue(model.state.value.catalog.trips.isEmpty())
+    }
+
+    @Test fun changingAndClearingFiltersUpdatesTheSavedValues() = runTest {
+        val savedState = SavedStateHandle()
+        val model = connectedModel(savedState)
+        model.queryChanged("  sierra  ")
+        model.categoryChanged(Category.MOUNTAIN)
+        assertEquals("  sierra  ", savedState.get<String>("explore.query"))
+        assertEquals("MOUNTAIN", savedState.get<String>("explore.category"))
+        model.queryChanged("")
+        model.categoryChanged(null)
+        assertEquals("", savedState.get<String>("explore.query"))
+        assertNull(savedState.get<String>("explore.category"))
+        assertNull(model.category.value)
+    }
+
+    @Test fun unknownRestoredCategoryFallsBackToAllWithoutLosingQuery() = runTest {
+        val model = connectedModel(SavedStateHandle(mapOf(
+            "explore.query" to "Alba",
+            "explore.category" to "REMOVED_CATEGORY",
+        )))
+        assertNull(model.category.value)
+        assertEquals("Alba", model.query.value)
     }
 
     @Test fun newerRefreshCancelsPreviousWorkAndWins() = runTest {

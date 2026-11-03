@@ -53,7 +53,7 @@ Gradle 8.14.3 is pinned with SHA-256; AGP 8.13.2, Kotlin 2.2.10 and library vers
 - [Trips.kt](core/src/main/kotlin/dev/navalcode/rumbo/core/Trips.kt): source/store contracts, refresh deadline, cancellation, cached content and idempotent bookings, without Android dependencies.
 - [TripCatalogApi.kt](app/src/main/java/dev/navalcode/rumbo/data/TripCatalogApi.kt): Retrofit DTO validation and mapping of HTTP/I/O failures.
 - [TripDatabase.kt](app/src/main/java/dev/navalcode/rumbo/data/TripDatabase.kt): transactional catalog replacement and unique bookings in Room.
-- [TripsViewModel.kt](app/src/main/java/dev/navalcode/rumbo/ui/TripsViewModel.kt): read-only flows, input methods and cancellation of a superseded refresh.
+- [TripsViewModel.kt](app/src/main/java/dev/navalcode/rumbo/ui/TripsViewModel.kt): read-only flows, saved search/category state and cancellation of a superseded refresh.
 - [RumboApp.kt](app/src/main/java/dev/navalcode/rumbo/ui/RumboApp.kt): Compose, Navigation destinations, stable detail IDs and local actions.
 - [Landscape.kt](app/src/main/java/dev/navalcode/rumbo/ui/Landscape.kt): original Canvas illustrations.
 
@@ -63,11 +63,11 @@ Gradle 8.14.3 is pinned with SHA-256; AGP 8.13.2, Kotlin 2.2.10 and library vers
 
 Retrofit declares `GET /v1/trips` at `https://demo.rumbo.invalid/`. An OkHttp application interceptor answers every request locally without forwarding it. The scenario selects a response, I/O failure, HTTP 503 or cancellable delay. The repository applies a 3.5-second deadline and preserves the previous catalog and timestamp on expected failures.
 
-MockWebServer tests use real loopback HTTP to check the contract and cancellation. This is a simulated travel source. Query/category state survives activity recreation through the ViewModel, but is not restored after process death; Room data persists independently.
+MockWebServer tests use real loopback HTTP to check the contract and cancellation. This is a simulated travel source. Search and category use Android’s SavedStateHandle so a retained task can restore them after background process death. Room stores the catalog, favorites and bookings separately. A fresh task or force-stop is outside this restoration guarantee.
 
 ## Checks and limits
 
-The project has **32 JVM tests** (16 core, 10 HTTP and six ViewModel) and **eight Android tests** for Room, booking, cached content, Back, independent favorites and activity recreation. [Verification](docs/VERIFICATION.md) records the current runs, screenshots, artifact audits and any failed attempts; follow the workflow link above for hosted results.
+The project has **35 JVM tests** (16 core, 10 HTTP and nine ViewModel) and **nine Android tests** for Room, booking, cached content, Back, independent favorites, activity recreation and filter retention. [Verification](docs/VERIFICATION.md) records the current runs, screenshots, artifact audits and any failed attempts; follow the workflow link above for hosted results.
 
 Resources are Spanish with an English fallback. The app is a learning example: no real availability, payments, production signing or store distribution. Emulator checks and calculated layout checks do not establish physical-device behavior or formal accessibility certification.
 

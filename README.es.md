@@ -63,11 +63,11 @@ Gradle 8.14.3 está fijado con SHA-256; AGP 8.13.2, Kotlin 2.2.10 y las bibliote
 
 Retrofit declara `GET /v1/trips` en `https://demo.rumbo.invalid/`. Un interceptor de aplicación OkHttp responde localmente sin reenviar las peticiones. El escenario selecciona una respuesta, fallo I/O, HTTP 503 o espera cancelable. El repositorio aplica un límite de 3,5 segundos y conserva catálogo y fecha anteriores ante los fallos esperados.
 
-Las pruebas con MockWebServer usan HTTP real en loopback para comprobar contrato y cancelación. La fuente de viajes está simulada. Consulta y categoría se conservan al recrear la actividad mediante el ViewModel, pero no tras morir el proceso; los datos de Room persisten por separado.
+Las pruebas con MockWebServer usan HTTP real en loopback para comprobar contrato y cancelación. La fuente de viajes está simulada. Búsqueda y categoría usan SavedStateHandle de Android para restaurarse al volver a una tarea cuyo proceso haya terminado en segundo plano. Room guarda catálogo, favoritos y reservas por separado. Una tarea nueva o forzar la detención quedan fuera de esa garantía de restauración.
 
 ## Comprobaciones y límites
 
-El proyecto tiene **32 pruebas JVM** (16 de core, 10 HTTP y seis de ViewModel) y **ocho Android** de Room, reserva, caché, Atrás, favorito independiente y recreación de actividad. [Verificación](docs/VERIFICATION.md) registra ejecuciones, capturas, auditorías de artefactos e intentos fallidos. El enlace de CI superior lleva a los resultados alojados.
+El proyecto tiene **35 pruebas JVM** (16 de core, 10 HTTP y nueve de ViewModel) y **nueve Android** de Room, reserva, caché, Atrás, favorito independiente, recreación de actividad y conservación de filtros. [Verificación](docs/VERIFICATION.md) registra ejecuciones, capturas, auditorías de artefactos e intentos fallidos. El enlace de CI superior lleva a los resultados alojados.
 
 Los recursos están en español con inglés de respaldo. Es un ejemplo formativo: sin disponibilidad real, pagos, firma de producción ni distribución en tiendas. Las pruebas de emulador y las comprobaciones de layout no acreditan comportamiento físico ni una certificación formal de accesibilidad.
 

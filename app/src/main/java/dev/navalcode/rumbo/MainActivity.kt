@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import dev.navalcode.rumbo.ui.RumboApp
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             RumboTheme {
                 val model: TripsViewModel = viewModel(factory = viewModelFactory {
-                    initializer { TripsViewModel(graph.repository, graph.source) }
+                    initializer { TripsViewModel(graph.repository, graph.source, createSavedStateHandle()) }
                 })
                 RumboApp(model)
             }

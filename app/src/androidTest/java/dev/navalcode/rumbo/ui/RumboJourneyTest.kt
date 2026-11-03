@@ -136,4 +136,15 @@ class RumboJourneyTest {
         compose.onNodeWithTag("close-detail").performScrollTo().performClick()
         showFirstTrip()
     }
+
+    @Test fun activityRecreationKeepsSearchAndCategory() {
+        waitForCatalog()
+        compose.onNodeWithTag("explore-list").performScrollToIndex(0)
+        compose.onNodeWithTag("search").performTextInput("Alba")
+        compose.onNodeWithTag("filter-MOUNTAIN").performClick()
+        compose.activityRule.scenario.recreate()
+        compose.onNodeWithTag("search").assertTextContains("Alba")
+        compose.onNodeWithTag("filter-MOUNTAIN").assertIsSelected()
+        showFirstTrip()
+    }
 }

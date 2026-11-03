@@ -17,11 +17,11 @@
   },
   {
     "path": "README.es.md",
-    "sha256": "7e97b4aa5e8e5686c023ca7532cf63148a2e3fcb545d6351f065f9a516b7b9f3"
+    "sha256": "6e23e9c9bf4ccb80f7457116a2b4e3b9154c7637d061057c32dbec2947534271"
   },
   {
     "path": "README.md",
-    "sha256": "9cd3a10a5b29341aa97eb8edc27d863a94d7640204cb0229255042910e2a00c1"
+    "sha256": "a7eaae9517916e7a6661460231381102b2ded361749924009a30198ee34fc6cb"
   },
   {
     "path": "THIRD_PARTY.md",
@@ -29,7 +29,7 @@
   },
   {
     "path": "app/build.gradle.kts",
-    "sha256": "bfb95e0d84b3b12f8333512b2b898c01c12f409b7480a35fbdf64e723fc164ef"
+    "sha256": "22ef510c0ee59914795266853ee29ff781172f72892dde3b625a329b825b04fc"
   },
   {
     "path": "app/proguard-rules.pro",
@@ -45,7 +45,7 @@
   },
   {
     "path": "app/src/androidTest/java/dev/navalcode/rumbo/ui/RumboJourneyTest.kt",
-    "sha256": "fb1e651919b2b487b6932476d0b3f1d2b815dd7405d4dcc3c7c649601933c968"
+    "sha256": "a1a3b2d3650dc0e8492944142990534328234032afa34c5d087889c0e5ef3505"
   },
   {
     "path": "app/src/main/AndroidManifest.xml",
@@ -61,7 +61,7 @@
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/MainActivity.kt",
-    "sha256": "8f9b0364679a7b72315a2a87bf4f13e71ab1025e83e6a0c7e78b49fefeeb1c5f"
+    "sha256": "34ff653542e3a905c66331bdff91b7978814fff1f8629a4bbe1fcecc03832f5e"
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/RumboApplication.kt",
@@ -93,7 +93,7 @@
   },
   {
     "path": "app/src/main/java/dev/navalcode/rumbo/ui/TripsViewModel.kt",
-    "sha256": "a3a2a90be9c8fb3edffc43dad719a438c440c9814cfad357e5c9e07686b59c3a"
+    "sha256": "f89bb717e8f20c8f10b4e42dbff6e1fd9895a63730291504514ac4bbc2418f4e"
   },
   {
     "path": "app/src/main/res/drawable/ic_rumbo.xml",
@@ -145,7 +145,7 @@
   },
   {
     "path": "app/src/test/java/dev/navalcode/rumbo/ui/TripsViewModelTest.kt",
-    "sha256": "568816422cbb35c0a758c5a779ed3cf5ae8398aacc8c5f75ad048f6f4d52844d"
+    "sha256": "76debd5e186820692e96b3ee8276c37d2b702a2f83def07be22ff07e63b7b9d4"
   },
   {
     "path": "build.gradle.kts",
@@ -169,11 +169,11 @@
   },
   {
     "path": "docs/ARCHITECTURE.md",
-    "sha256": "4941104e21f4243747c1d4cef69057773a12ef7aa464996e0ff8f8ff194cf781"
+    "sha256": "1320715f34eab5009e5213c0b5601a303d297161a9cdc812a414af7355f63901"
   },
   {
     "path": "docs/VERIFICATION.md",
-    "sha256": "4f701666e92e3b26c511071f703eea1588e17c48ac606a49ca779d5972df91f7"
+    "sha256": "198aa8dce0bc6c65f8dc63748b0ec06d07d2ada432fb7f472cd424c0125903e3"
   },
   {
     "path": "docs/images/detail.png",

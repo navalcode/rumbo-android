@@ -33,7 +33,11 @@ Navigation Compose owns the Explore, Plan, Lab and `trip/{tripId}` destinations.
 
 Room holds the catalog, timestamp, favorite IDs and local bookings. Catalog replacement is transactional. Booking uniqueness is enforced in storage and coordinated by a repository mutex; repeating an operation returns the existing reference and date. This is local idempotence, not payment or server transaction processing. Backup is disabled for the demo database.
 
-Query/category state survives configuration changes through the ViewModel, but it is not restored after process death. Room data survives process restart. The Navigation restoration test covers activity recreation, not a physical device or all process-kill scenarios.
+Search text and category are small transient UI values held in `SavedStateHandle`. The activity’s ViewModel factory calls `createSavedStateHandle()` using its `CreationExtras`, so the handle participates in Android’s saved-state registry. Only the query string and stable category name are saved; an unknown category falls back to All. The catalog, favorite IDs and bookings remain in Room.
+
+Saved state belongs to the retained task. It can restore filters after Android stops the activity and terminates its background process; it does not promise persistence after force-stop, dismissing the task, rebooting or opening a fresh task. The lab scenario remains process-local. JVM tests check restored values before loading, updates, clearing and unknown categories; an activity-recreation test covers UI continuity. The separate process-restoration check and its limits are recorded in [verification](VERIFICATION.md).
+
+Android’s [saved-state guidance](https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-savedstate) and [ViewModel factory guidance](https://developer.android.com/topic/libraries/architecture/viewmodel/viewmodel-factories) explain these lifecycle boundaries. Room data persists independently.
 
 ## Quality and release
 
@@ -41,4 +45,4 @@ Core tests use fakes and virtual time. ViewModel tests inspect loading, replacem
 
 The UI has Spanish/English resources, icon action labels, headings, minimum touch targets and scrolling detail content. Initial visual checks used both languages and enlarged text. These checks are not a formal accessibility certification. CI uses an API 35 emulator; local device tests used an API 37 emulator. No physical-device or store validation is claimed.
 
-UI journey assertions scroll a lazy list to the expected item after returning from a detail or inserting an offline banner. Off-screen items may be absent from the semantics tree on smaller viewports; that absence alone does not mean cached data was lost. An earlier seven-test run used 1080 × 1920 / 420 dpi. The current suite has eight tests; viewport, language, enlarged-text runs and unsuccessful attempts are recorded in [verification](VERIFICATION.md).
+UI journey assertions scroll a lazy list to the expected item after returning from a detail or inserting an offline banner. Off-screen items may be absent from the semantics tree on smaller viewports; that absence alone does not mean cached data was lost. An earlier seven-test run used 1080 × 1920 / 420 dpi. The current suite has nine tests; viewport, language, enlarged-text runs and unsuccessful attempts are recorded in [verification](VERIFICATION.md).

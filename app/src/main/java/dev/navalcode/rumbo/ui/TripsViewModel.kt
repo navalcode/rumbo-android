@@ -1,6 +1,7 @@
 package dev.navalcode.rumbo.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dev.navalcode.rumbo.core.Booking
 import dev.navalcode.rumbo.core.Catalog
@@ -24,11 +25,16 @@ data class TripsState(
     val sync: SyncStatus = SyncStatus.Idle,
 )
 
-class TripsViewModel(private val repository: TripRepository, private val source: DemoTripSource) : ViewModel() {
+class TripsViewModel(
+    private val repository: TripRepository,
+    private val source: DemoTripSource,
+    private val savedState: SavedStateHandle,
+) : ViewModel() {
     private var refreshJob: Job? = null
-    private val mutableQuery = MutableStateFlow("")
-    val query = mutableQuery.asStateFlow()
-    private val mutableCategory = MutableStateFlow<Category?>(null)
+    val query = savedState.getStateFlow(QUERY_KEY, "")
+    private val mutableCategory = MutableStateFlow(
+        Category.entries.firstOrNull { it.name == savedState.get<String>(CATEGORY_KEY) },
+    )
     val category = mutableCategory.asStateFlow()
     val scenario = source.scenario
     val state = combine(repository.catalog, repository.favorites, repository.bookings, repository.sync) {
@@ -37,9 +43,12 @@ class TripsViewModel(private val repository: TripRepository, private val source:
 
     init { refresh() }
 
-    fun queryChanged(value: String) { mutableQuery.value = value }
+    fun queryChanged(value: String) { savedState[QUERY_KEY] = value }
 
-    fun categoryChanged(value: Category?) { mutableCategory.value = value }
+    fun categoryChanged(value: Category?) {
+        savedState[CATEGORY_KEY] = value?.name
+        mutableCategory.value = value
+    }
 
     fun refresh() {
         refreshJob?.cancel()
@@ -57,5 +66,10 @@ class TripsViewModel(private val repository: TripRepository, private val source:
 
     fun reserve(tripId: String) {
         viewModelScope.launch { repository.reserve(tripId) }
+    }
+
+    private companion object {
+        const val QUERY_KEY = "explore.query"
+        const val CATEGORY_KEY = "explore.category"
     }
 }

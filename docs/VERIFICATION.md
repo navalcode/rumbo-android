@@ -1,5 +1,42 @@
 # Verification record
 
+## Filter restoration · 3 November 2026
+
+Search text and category now use Android saved state. The ViewModel factory obtains the handle from the activity's CreationExtras. No domain, Room schema, fixture data, navigation graph, visual layout or network contract changes. Lifecycle saved-state is explicitly declared at the same pinned 2.9.2 version as the existing lifecycle dependencies.
+
+- **35 JVM tests pass**: 16 core, 10 HTTP and nine ViewModel. The three new cases cover restored filters before catalog loading, saving/clearing values, and an unknown saved category falling back to All. A fresh all-task run executed 87 Gradle tasks; a subsequent final build included the explicit dependency and new native test.
+- Lint passes with zero errors and **18 warnings** about target/tool/library updates, including the newly explicit lifecycle artifact. Debug APK, test APK and unsigned optimized release build successfully with JDK 17.0.14 / SDK 36.
+- **Nine native tests pass** on the dedicated API 37 emulator at 360 × 800, Spanish / font scale 1.0: three Room cases and six Compose journeys, including a new search/category activity-recreation check. The installed normal debug APK hash was compared with the built artifact before running the suite.
+- Separate normal-entry-point process-restoration check passes twice on the normal debug APK. The activity reached STOPPED, `am kill` removed the background process, `pidof` confirmed its absence, and launcher return created a different PID. First return restored `Alba`, Mountain and one matching trip; after clearing the query and selecting All, the second return kept both filters cleared. The same two cycles also pass on the optimized release APK, signed with the standard local Android debug key solely for installation. Its installed hash was checked before the run. This checks the restored filter flow through R8, not every release behavior. Activity recreation above is not used as proof of process-death restoration.
+
+Saved UI state belongs to a retained task. Force-stop, dismissing the task, rebooting and opening a fresh task are outside the guarantee; Room data persists separately. The Lab scenario stays process-local. Current Android captures confirm the existing Spanish layout; earlier English/enlarged-text rows below remain historical checks, not fresh results.
+
+The first software-rendered emulator reported a SurfaceFlinger driver stall and installation timed out without an acknowledgement. Package queries and rendering diagnostics were inspected before stopping only the dedicated emulator. A host-rendered cold start then installed both APKs successfully; the full nine-test suite passed. This is an environment recovery, not proof of a universal emulator fix. The first external process-check harness read selection from the text child instead of the chip's checked semantics; another expected `mState` where API 37 prints `state`. Those attempts are retained as harness failures, not application failures or passed process checks.
+
+Advisory APK audits: debug **58.35 MB DEX**, release **2.48 MB DEX**, native ELF and APK ZIP 16 KB alignment checks pass. Percentage R8 metrics are absent; the tool's overall pass does not establish a shrinking/optimization/obfuscation percentage, current store policy or acceptance. No physical-device, store, native iOS or formal accessibility result is claimed.
+
+Current artifact SHA-256:
+
+- Normal debug: `926ac2ade3f8dab27b47dd4e584fd903086addca4288edaeacd730246fd2d47b`.
+- Unsigned optimized release: `0b6c6536a5684955f06c1d256bbe525fd9a38f960ead67c1e2653438bd59287f`.
+- Same optimized release, locally test-signed: `b66a73342e55b0d29c8faefb46b465d07b3ff76418bd0fa4e4c54e85d4e724df`.
+
+No production signing configuration or downloadable release is added.
+
+### Reproduce retained-task restoration
+
+Install the normal debug APK. In Explore, enter `Alba` and select Mountain. Press Home, then confirm the activity has reached STOPPED with `adb -s DEVICE_ID shell dumpsys activity activities`. Record `adb -s DEVICE_ID shell pidof dev.navalcode.rumbo`, then:
+
+```sh
+adb -s DEVICE_ID shell am kill dev.navalcode.rumbo
+adb -s DEVICE_ID shell pidof dev.navalcode.rumbo
+adb -s DEVICE_ID shell am start -W -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000 -n dev.navalcode.rumbo/.MainActivity
+```
+
+The middle command must show no process before returning; check that the new PID differs. The retained task must show `Alba`, Mountain selected and the matching catalog result. Clear the query, select All and repeat; old filters must not return. Do not use force-stop or clear app data for this check. Local evidence records the actual PIDs, APK hash and screenshots; these external checks are separate from the hosted instrumentation workflow.
+
+## Earlier editorial verification · 30 October 2026
+
 30 October 2026. This record applies to the editorial revision: concrete catalog/booking actions, separate unavailable-detail copy, shorter loading text and explicit simulated failures. The domain, REST adapter, Room schema, dependencies and lock/version configuration did not change.
 
 ## Local checks
