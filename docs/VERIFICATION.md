@@ -1,5 +1,13 @@
 # Verification record
 
+## CI action runtime maintenance · 3 November 2026
+
+The workflow pins maintained releases of checkout, Java setup, artifact upload, Gradle setup and Android setup by full commit SHA. Their JavaScript runtime is Node 24; this does not change the app's JDK 17, SDK 36, dependency versions or test commands. Flutter setup and the emulator action keep their existing reviewed commits.
+
+`setup-gradle` uses `cache-provider: basic`, retaining GitHub Actions caching instead of selecting the new enhanced provider. `setup-android` explicitly retains command-line tools archive `12266719`, which was the previous action's implicit default. Events, read-only contents permission, disabled credential persistence, runners, timeouts and artifact retention are unchanged.
+
+Local validation: actionlint 1.7.12 and a byte-for-byte comparison after reversing only the reviewed pins and explicit cache/SDK inputs. ShellCheck was unavailable; existing shell commands are unchanged. This validates workflow configuration, not a new hosted build. Follow the repository's current Actions run for hosted results; earlier app/runtime records below retain their original scope.
+
 ## Filter restoration · 3 November 2026
 
 Search text and category now use Android saved state. The ViewModel factory obtains the handle from the activity's CreationExtras. No domain, Room schema, fixture data, navigation graph, visual layout or network contract changes. Lifecycle saved-state is explicitly declared at the same pinned 2.9.2 version as the existing lifecycle dependencies.

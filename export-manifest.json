@@ -5,7 +5,7 @@
   },
   {
     "path": ".github/workflows/checks.yml",
-    "sha256": "e9e72696928219bf21b05224037a524b106c0228ed7b742f6cb2b4b58c9bce63"
+    "sha256": "c8b129f070ce8e300dfb716932655696d9ed79503a89b602a7eb111db0aabee0"
   },
   {
     "path": "DESIGN.md",
@@ -173,7 +173,7 @@
   },
   {
     "path": "docs/VERIFICATION.md",
-    "sha256": "198aa8dce0bc6c65f8dc63748b0ec06d07d2ada432fb7f472cd424c0125903e3"
+    "sha256": "e6cdf75d0862e92f24b417eea78a00ddf57b134f3880758e4f02df9b8fff47e1"
   },
   {
     "path": "docs/images/detail.png",
