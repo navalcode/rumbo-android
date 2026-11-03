@@ -46,7 +46,7 @@ From this directory:
 
 Connected tests need an emulator or device. For an explicit serial and optional screenshots, see [verification commands](docs/VERIFICATION.md). Use `:app:bundleRelease` to generate an AAB. Release enables R8 and resource shrinking; production signing is not configured.
 
-Gradle 8.14.3 is pinned with SHA-256; AGP 8.13.2, Kotlin 2.2.10 and library versions are fixed. Dependencies come from Google Maven and Maven Central.
+Gradle 8.14.6 is pinned with SHA-256; AGP 8.13.2, Kotlin 2.2.10 and library versions are fixed. Dependencies come from Google Maven and Maven Central.
 
 ## Read the implementation
 

@@ -46,7 +46,7 @@ Desde esta carpeta:
 
 Las pruebas conectadas necesitan un emulador o dispositivo. Los [comandos de verificación](docs/VERIFICATION.md), en inglés, explican cómo elegir un serial y obtener capturas opcionales. `:app:bundleRelease` genera un AAB. Release activa R8 y reducción de recursos; no hay firma de producción configurada.
 
-Gradle 8.14.3 está fijado con SHA-256; AGP 8.13.2, Kotlin 2.2.10 y las bibliotecas usan versiones concretas. Las dependencias proceden de Google Maven y Maven Central.
+Gradle 8.14.6 está fijado con SHA-256; AGP 8.13.2, Kotlin 2.2.10 y las bibliotecas usan versiones concretas. Las dependencias proceden de Google Maven y Maven Central.
 
 ## Por dónde leer el código
 

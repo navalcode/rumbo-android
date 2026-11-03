@@ -1,5 +1,27 @@
 # Verification record
 
+## Gradle patch and cache ownership · 3 November 2026
+
+Both wrappers now use Gradle 8.14.6. The distribution and wrapper JAR were checked against official SHA-256 values, and the wrapper was generated from that verified distribution. The patch includes fixes described in the [Gradle release notes](https://docs.gradle.org/8.14.6/release-notes.html). JDK 17, SDK 36, plugin/dependency versions and application source are unchanged.
+
+The device job reads the basic Gradle cache; only the build/checks job may save it on the default branch. This avoids competing writes to the same key. No caches were deleted. The Gradle action still reports Gradle 8 as behind Gradle 9 because its support classifier compares major versions. That notice is retained; a major upgrade needs a separate Kotlin/AGP/Flutter compatibility review.
+
+Actionlint 1.7.12 passes with a local label allowlist for the official `ubuntu-26.04` image, absent from that linter's built-in list. The initial unknown-label diagnostics were retained. ShellCheck was unavailable; shell commands are unchanged. Rumbo pins the Ubuntu 26.04 image observed in its preceding run; Flutter retains Ubuntu 24.04. Both labels are listed in [runner-images](https://github.com/actions/runner-images).
+
+Local validation executed 114 Gradle tasks: **35 JVM tests**, lint with **zero errors / 17 warnings**, debug APK, unsigned optimized release APK and release AAB. The Kotlin compatibility table lists a lower fully-tested AGP maximum than this project's inherited Kotlin 2.2.10 / AGP 8.13.2 pairing; these project results are evidence for this combination, not a blanket upstream compatibility guarantee. See the [Kotlin matrix](https://kotlinlang.org/docs/gradle-configure-project.html).
+
+Advisory audits report **58.35 MB DEX** in debug and **2.48 MB** in optimized APK/AAB. Both AAB R8 options and stats were read directly from the ZIP: the complements of no-shrinking / no-optimization / no-obfuscation match **98.15% / 97.18% / 98.08%** in the tool report.
+
+All six local packages pass the advisory ELF/ZIP 16 KB checks. APKs lack percentage R8 metadata; the AAB ZIP-alignment result has no split entries and does not measure Play-generated APKs. The percentages above are metadata-derived, not runtime performance, whole-app reduction or store certification. No new local device or release-runtime test is attributed to this patch. Earlier device results below retain their historical scope.
+
+Local artifact SHA-256:
+
+- rumbo-debug: `926ac2ade3f8dab27b47dd4e584fd903086addca4288edaeacd730246fd2d47b`.
+- rumbo-release: `f3b3dd2588cad9d7811e66204fa208cf0467c404f61a6a4f5f8374751cec4f1f`.
+- rumbo-bundle: `3d89cbf582d3efd0fc0d3e257fda63776599efa0f4d069396cad4f35a543a05e`.
+
+Hosted verification for this patch is pending; the previous CI action-maintenance runs below do not validate these new wrapper bytes.
+
 ## CI action runtime maintenance · 3 November 2026
 
 The workflow pins maintained releases of checkout, Java setup, artifact upload, Gradle setup and Android setup by full commit SHA. Their JavaScript runtime is Node 24; this does not change the app's JDK 17, SDK 36, dependency versions or test commands. The emulator action keeps its existing reviewed commit.

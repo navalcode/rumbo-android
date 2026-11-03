@@ -5,7 +5,7 @@
   },
   {
     "path": ".github/workflows/checks.yml",
-    "sha256": "c8b129f070ce8e300dfb716932655696d9ed79503a89b602a7eb111db0aabee0"
+    "sha256": "c8fed5f149b84fc595c3d29d58b5e99638974f5ae2d9549943861b9f1bf10306"
   },
   {
     "path": "DESIGN.md",
@@ -17,15 +17,15 @@
   },
   {
     "path": "README.es.md",
-    "sha256": "6e23e9c9bf4ccb80f7457116a2b4e3b9154c7637d061057c32dbec2947534271"
+    "sha256": "495b344f04b6cdd1494585556e92846a0ac76b94a6ffe7ecbfbc4319ff72ca36"
   },
   {
     "path": "README.md",
-    "sha256": "a7eaae9517916e7a6661460231381102b2ded361749924009a30198ee34fc6cb"
+    "sha256": "260df54d5006af73b2ddd1fa3433c5745b07755b5ce31c39f472e744b9caa05f"
   },
   {
     "path": "THIRD_PARTY.md",
-    "sha256": "956e93496d6f79cdfcf6df26478b4871c97b7e85b0338ae6492da18e58da6daf"
+    "sha256": "560844d617ed3796847862366d4a0c956dcfb08068e34d3dd8d928838b448b19"
   },
   {
     "path": "app/build.gradle.kts",
@@ -173,7 +173,7 @@
   },
   {
     "path": "docs/VERIFICATION.md",
-    "sha256": "a12860923c34cdeca5237a7abaee8590e2a8c58f45a53b7162605a8063ea8cff"
+    "sha256": "6ab4b276ef7c69ebe489efd79b5e2173e820134fcd9fe91713324307cab706b9"
   },
   {
     "path": "docs/images/detail.png",
@@ -209,11 +209,11 @@
   },
   {
     "path": "gradle/wrapper/gradle-wrapper.jar",
-    "sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172"
+    "sha256": "ad16bca46cb71bb5887c546860d93992aeee35c1fdaf4a242b0a612375d937e0"
   },
   {
     "path": "gradle/wrapper/gradle-wrapper.properties",
-    "sha256": "7d09e69815e4c5a1c20cab8bc15cccd07922939f16bd6470a7436f709774eae4"
+    "sha256": "2fa53698f8cbdad36e0d41477027f8bc985691afcd39844be9161da2fb5436a1"
   },
   {
     "path": "gradle.properties",
